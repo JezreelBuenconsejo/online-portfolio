@@ -40,7 +40,8 @@ export default function Experience() {
         animate={controls}
       >
         <div className="relative max-w-4xl mx-auto">
-          <div className="relative border-l-4 border-main-blue pl-6 pb-8">
+          {/**
+          div className="relative border-l-4 border-main-blue pl-6 pb-8">
             <span className="absolute -left-3 top-0 w-5 h-5 bg-main-bluedark rounded-full"></span>
             <h3 className="text-xl leading-none mb-1 font-bold text-main-blue">
               Software Developer
@@ -57,19 +58,25 @@ export default function Experience() {
               feature updates.
             </p>
           </div>
+           */}
           <div className="relative border-l-4 border-main-blue pl-6 pb-8">
             <span className="absolute -left-3 top-0 w-5 h-5 bg-main-bluedark rounded-full"></span>
             <h3 className="text-xl leading-none mb-1 font-bold text-main-blue">
-              Full-Stack Web Developer
+              Software Developer
             </h3>
             <h4 className="text-lg text-main-bluedark brightness-110">
               Multiple Clients
             </h4>
-            <p className="text-sm text-theme-text">March - October 2023</p>
+            <p className="text-sm text-theme-text">March 2023 - Present</p>
             <p>
               Built and maintained websites using HTML, CSS, JavaScript, PHP,
               Wordpress, CodeIgnite and Laravel. Optimized user experience and
-              ensured cross-browser compatibility.
+              ensured cross-browser compatibility. <br />
+              Also worked in developing modern web applications using React, and building
+              mobile applications for both iOS and Android using Flutter.
+              Integrating APIs, improving app performance, and collaborating
+              with remote teams internationally to ensure smooth deployments and
+              feature updates.
             </p>
           </div>
           <div className="relative border-l-4 border-main-blue pl-6 pb-8">
