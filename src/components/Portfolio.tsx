@@ -33,7 +33,7 @@ export default function Portfolio() {
       <h2 className="text-center text-main-blue text-4xl md:text-6xl font-semibold text-primary mb-4">
         Portfolio
       </h2>
-      <p className="text-base text-white mb-8">
+      <p className="text-lg italic text-white mb-8">
         NOTE: Most of these work are personal projects. I am unable to showcase
         most my client work due to Non-Disclosure Agreements (NDAs) I have
         signed.

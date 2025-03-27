@@ -6,7 +6,7 @@ import { useInView } from "react-intersection-observer";
 export default function Skills() {
   const controls = useAnimation();
   const [ref, inView] = useInView({
-    triggerOnce: true, 
+    triggerOnce: true,
     threshold: 0.2,
   });
 
@@ -38,7 +38,7 @@ export default function Skills() {
         className="mx-auto relative grid grid-cols-1 md:grid-cols-3 gap-10 z-10"
         variants={fadeIn}
         initial="hidden"
-        animate={controls} 
+        animate={controls}
       >
         {/* Backend Section */}
         <motion.div
@@ -49,7 +49,11 @@ export default function Skills() {
           <ul className="list-disc ml-4 space-y-2">
             <li>Golang</li>
             <li>C#</li>
-            <li>Java</li>
+            <li>Node.js</li>
+            <li>Python</li>
+            <ul className="list-disc ml-6 space-y-1">
+              <li>Django</li>
+            </ul>
             <li>PHP</li>
             <ul className="list-disc ml-6 space-y-1">
               <li>Laravel</li>
@@ -59,6 +63,7 @@ export default function Skills() {
             <ul className="list-disc ml-6 space-y-1">
               <li>AWS</li>
               <li>Firebase</li>
+              <li>Supabase</li>
             </ul>
           </ul>
         </motion.div>
@@ -77,6 +82,7 @@ export default function Skills() {
               <li>React/Next.JS</li>
               <li>Vue</li>
               <li>Angular</li>
+              <li>Astro</li>
             </ul>
             <li>CSS</li>
             <ul className="list-disc ml-6 space-y-1">

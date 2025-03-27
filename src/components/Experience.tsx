@@ -26,7 +26,7 @@ export default function Experience() {
   };
   return (
     <section
-    ref={ref}
+      ref={ref}
       id="experience"
       className="py-20 bg-theme-background text-theme-text"
     >
@@ -69,14 +69,14 @@ export default function Experience() {
             </h4>
             <p className="text-sm text-theme-text">March 2023 - Present</p>
             <p>
-              Built and maintained websites using HTML, CSS, JavaScript, PHP,
-              Wordpress, CodeIgnite and Laravel. Optimized user experience and
-              ensured cross-browser compatibility. <br />
-              Also worked in developing modern web applications using React, and building
-              mobile applications for both iOS and Android using Flutter.
-              Integrating APIs, improving app performance, and collaborating
-              with remote teams internationally to ensure smooth deployments and
-              feature updates.
+              Freelance Software Developer with a strong background in building
+              modern web-based applications and cross-platform mobile apps.
+              Experienced in collaborating with international teams, delivering
+              client-driven solutions, and managing end-to-end development —
+              from architecture and implementation to deployment and
+              maintenance. Known for writing clean, maintainable code and
+              continuously improving systems for performance, scalability, and
+              user experience.
             </p>
           </div>
           <div className="relative border-l-4 border-main-blue pl-6 pb-8">
