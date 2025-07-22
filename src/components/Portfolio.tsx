@@ -28,12 +28,11 @@ export default function Portfolio() {
   };
 
   return (
-    <section id="portfolio" className="py-20" 
-    ref={ref}>
-      <h2 className="text-center text-main-blue text-4xl md:text-6xl font-semibold text-primary mb-4">
+    <section id="portfolio" className="py-20" ref={ref}>
+      <h2 className="text-center text-main-blue text-4xl md:text-5xl font-montserrat mb-4">
         Portfolio
       </h2>
-      <p className="text-lg italic text-white mb-8">
+      <p className=" italic text-white mb-8">
         NOTE: Most of these work are personal projects. I am unable to showcase
         most my client work due to Non-Disclosure Agreements (NDAs) I have
         signed.
@@ -46,17 +45,81 @@ export default function Portfolio() {
       >
         <Link
           className="relative shadow-lg overflow-hidden flex items-center justify-center text-gray-700"
+          href="https://sales-tracker-jez.vercel.app/"
+          target="_blank"
+        >
+          <div className="space-y-2 flex flex-col justify-end h-full  text-center text-white group text-base tracking-wide">
+            <h3 className="group-hover:text-main-blue transition-all duration-300 mt-auto">
+              Sales Tracker & POS System{" "}
+              <span className="italic">(In Development)</span>
+            </h3>
+            <div className="overflow-hidden rounded-xl md:max-h-[190px]">
+              <img
+                src="/assets/portfolio/sales-tracker.png"
+                alt=""
+                className="group-hover:scale-110 transition-all duration-300"
+              />
+            </div>
+            <div className="absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 rounded-full p-4 bg-[#0000008e] group-hover:opacity-100 transition-opacity duration-300 opacity-0 flex items-center justify-center">
+              <ArrowBigUp className="rotate-45 w-20 h-20 text-white stroke-1" />
+            </div>
+          </div>
+        </Link>
+        <Link
+          className="relative shadow-lg overflow-hidden flex items-center justify-center text-gray-700"
           href="https://axl-pastries.netlify.app/"
           target="_blank"
         >
           <div className="space-y-2 flex flex-col justify-end h-full  text-center text-white group text-base tracking-wide">
             <h3 className="group-hover:text-main-blue transition-all duration-300 mt-auto">
               Axl Pastries Online Shop{" "}
-              <span className="italic">(Under Development)</span>
+              <span className="italic">(In Development)</span>
             </h3>
-            <div className="overflow-hidden rounded-xl md:max-h-[210px]">
+            <div className="overflow-hidden rounded-xl md:max-h-[190px]">
               <img
                 src="/assets/portfolio/axl-pastries/pic1.png"
+                alt=""
+                className="group-hover:scale-110 transition-all duration-300"
+              />
+            </div>
+            <div className="absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 rounded-full p-4 bg-[#0000008e] group-hover:opacity-100 transition-opacity duration-300 opacity-0 flex items-center justify-center">
+              <ArrowBigUp className="rotate-45 w-20 h-20 text-white stroke-1" />
+            </div>
+          </div>
+        </Link>
+        <Link
+          className="relative shadow-lg overflow-hidden flex items-center justify-center text-gray-700"
+          href="https://fire-safety-store.vercel.app/"
+          target="_blank"
+        >
+          <div className="space-y-2 flex flex-col justify-end h-full  text-center text-white group text-base tracking-wide">
+            <h3 className="group-hover:text-main-blue transition-all duration-300 mt-auto">
+              Fire Safety Store <span className="italic">(Static UI)</span>
+            </h3>
+            <div className="overflow-hidden rounded-xl md:max-h-[190px]">
+              <img
+                src="/assets/portfolio/fire-safety-store.png"
+                alt=""
+                className="group-hover:scale-110 transition-all duration-300"
+              />
+            </div>
+            <div className="absolute top-1/2 right-1/2 translate-x-1/2 -translate-y-1/2 rounded-full p-4 bg-[#0000008e] group-hover:opacity-100 transition-opacity duration-300 opacity-0 flex items-center justify-center">
+              <ArrowBigUp className="rotate-45 w-20 h-20 text-white stroke-1" />
+            </div>
+          </div>
+        </Link>
+        <Link
+          className="relative shadow-lg overflow-hidden flex items-center justify-center text-gray-700"
+          href="https://hotel-booking-jez.netlify.app/booking"
+          target="_blank"
+        >
+          <div className="space-y-2 flex flex-col justify-end h-full  text-center text-white group text-base tracking-wide">
+            <h3 className="group-hover:text-main-blue transition-all duration-300 mt-auto">
+              Hotel Booking <span className="italic">(Static UI)</span>
+            </h3>
+            <div className="overflow-hidden rounded-xl md:max-h-[190px]">
+              <img
+                src="/assets/portfolio/hotel-booking.png"
                 alt=""
                 className="group-hover:scale-110 transition-all duration-300"
               />
@@ -75,7 +138,7 @@ export default function Portfolio() {
             <h3 className="group-hover:text-main-blue transition-all duration-300">
               Hero Page
             </h3>
-            <div className="overflow-hidden rounded-xl md:max-h-[210px]">
+            <div className="overflow-hidden rounded-xl md:max-h-[190px]">
               <img
                 src="/assets/portfolio/hero-page/pic1.png"
                 alt=""
@@ -96,7 +159,7 @@ export default function Portfolio() {
             <h3 className="group-hover:text-main-blue transition-all duration-300">
               To Do App
             </h3>
-            <div className="overflow-hidden rounded-xl md:max-h-[210px]">
+            <div className="overflow-hidden rounded-xl md:max-h-[190px]">
               <img
                 src="/assets/portfolio/todo/pic1.png"
                 alt=""
@@ -117,7 +180,7 @@ export default function Portfolio() {
             <h3 className="group-hover:text-main-blue transition-all duration-300">
               Facemask Detection
             </h3>
-            <div className="overflow-hidden rounded-xl md:max-h-[210px]">
+            <div className="overflow-hidden rounded-xl md:max-h-[190px]">
               <img
                 src="/assets/portfolio/facemask-detection/pic1.png"
                 alt=""
@@ -138,7 +201,7 @@ export default function Portfolio() {
             <h3 className="group-hover:text-main-blue transition-all duration-300">
               Client Feedback Form [Code]
             </h3>
-            <div className="overflow-hidden rounded-xl md:max-h-[210px]">
+            <div className="overflow-hidden rounded-xl md:max-h-[190px]">
               <img
                 src="/assets/portfolio/client-feedback-form/pic1.jpg"
                 alt=""
@@ -159,7 +222,7 @@ export default function Portfolio() {
             <h3 className="group-hover:text-main-blue transition-all duration-300">
               Decision Support System [Code] (Inactive project)
             </h3>
-            <div className="overflow-hidden flex h-full rounded-xl md:max-h-[210px]">
+            <div className="overflow-hidden flex h-full rounded-xl md:max-h-[190px]">
               <img
                 src="/assets/portfolio/dss/pic1.jpg"
                 alt=""

@@ -29,9 +29,9 @@ export default function Skills() {
     <section
       ref={ref}
       id="skills"
-      className="py-20 bg-theme-background text-theme-text relative"
+      className="py-20 text-theme-text relative"
     >
-      <h2 className="text-center relative text-4xl md:text-6xl font-semibold text-main-bluedark mb-8 z-10">
+      <h2 className="text-center relative text-4xl md:text-5xl font-montserrat text-main-blue mb-8 z-10">
         Skills
       </h2>
       <motion.div
@@ -45,7 +45,7 @@ export default function Skills() {
           className="bg-black p-6 rounded-3xl h-fit shadow-lg"
           whileHover={{ scale: 1.05 }}
         >
-          <h3 className="text-xl font-bold mb-4 text-main-bluedark">Backend</h3>
+          <h3 className="text-xl mb-4 text-main-bluedark">Backend</h3>
           <ul className="list-disc ml-4 space-y-2">
             <li>Golang</li>
             <li>C#</li>
@@ -73,7 +73,7 @@ export default function Skills() {
           className="bg-black p-6 rounded-3xl h-fit shadow-lg"
           whileHover={{ scale: 1.05 }}
         >
-          <h3 className="text-xl font-bold mb-4 text-main-bluedark">
+          <h3 className="text-xl mb-4 text-main-bluedark">
             Frontend & Web Design
           </h3>
           <ul className="list-disc ml-4 space-y-2">
@@ -103,13 +103,13 @@ export default function Skills() {
           className="bg-black p-6 rounded-3xl h-fit shadow-lg"
           whileHover={{ scale: 1.05 }}
         >
-          <h3 className="text-xl font-bold mb-4 text-main-bluedark">
+          <h3 className="text-xl mb-4 text-main-bluedark">
             Mobile Application
           </h3>
           <ul className="list-disc ml-4 space-y-2 mb-8">
             <li>Flutter</li>
           </ul>
-          <h3 className="text-xl font-bold mb-4 text-main-bluedark">
+          <h3 className="text-xl mb-4 text-main-bluedark">
             Other Skills
           </h3>
           <ul className="list-disc ml-4 space-y-2">

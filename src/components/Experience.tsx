@@ -28,9 +28,9 @@ export default function Experience() {
     <section
       ref={ref}
       id="experience"
-      className="py-20 bg-theme-background text-theme-text"
+      className="py-20 text-theme-text"
     >
-      <h2 className="text-center text-4xl md:text-6xl font-semibold mb-8 text-main-blue">
+      <h2 className="text-center text-4xl md:text-5xl font-montserrat mb-8 text-main-blue">
         Experience
       </h2>
       <motion.div
@@ -43,10 +43,10 @@ export default function Experience() {
           {/**
           div className="relative border-l-4 border-main-blue pl-6 pb-8">
             <span className="absolute -left-3 top-0 w-5 h-5 bg-main-bluedark rounded-full"></span>
-            <h3 className="text-xl leading-none mb-1 font-bold text-main-blue">
+            <h3 className="text-xl leading-none mb-1 text-main-blue">
               Software Developer
             </h3>
-            <h4 className="text-lg text-main-bluedark brightness-110">
+            <h4 className="text-lg italic text-main-bluedark brightness-110">
               Askrella, German Company
             </h4>
             <p className="text-sm text-theme-text">October 2023 - Present</p>
@@ -59,12 +59,12 @@ export default function Experience() {
             </p>
           </div>
            */}
-          <div className="relative border-l-4 border-main-blue pl-6 pb-8">
+          <div className="relative border-l-4 border-main-blue/70 pl-6 pb-8">
             <span className="absolute -left-3 top-0 w-5 h-5 bg-main-bluedark rounded-full"></span>
-            <h3 className="text-xl leading-none mb-1 font-bold text-main-blue">
+            <h3 className="text-xl leading-none mb-1 text-main-blue">
               Software Developer
             </h3>
-            <h4 className="text-lg text-main-bluedark brightness-110">
+            <h4 className="text-lg italic text-main-bluedark brightness-110">
               Multiple Clients
             </h4>
             <p className="text-sm text-theme-text">March 2023 - Present</p>
@@ -79,12 +79,12 @@ export default function Experience() {
               user experience.
             </p>
           </div>
-          <div className="relative border-l-4 border-main-blue pl-6 pb-8">
-            <span className="absolute -left-3 top-0 w-5 h-5 bg-main-bluedark rounded-full"></span>
-            <h3 className="text-xl leading-none mb-1 font-bold text-main-blue">
+          <div className="relative border-l-4 border-main-blue/70 pl-6 pb-8">
+            <span className="absolute -left-2.5 top-0 w-4 h-4 bg-main-bluedark rounded-full"></span>
+            <h3 className="text-xl leading-none mb-1 text-main-blue">
               Executive Virtual Assistant (Operations and Database Manager)
             </h3>
-            <h4 className="text-lg text-main-bluedark brightness-110">
+            <h4 className="text-lg italic text-main-bluedark brightness-110">
               Direct Client
             </h4>
             <p className="text-sm text-theme-text">
@@ -96,12 +96,12 @@ export default function Experience() {
               media management.
             </p>
           </div>
-          <div className="relative border-l-4 border-main-blue pl-6 pb-8">
-            <span className="absolute -left-3 top-0 w-5 h-5 bg-main-bluedark rounded-full"></span>
-            <h3 className="text-xl leading-none mb-1 font-bold text-main-blue">
+          <div className="relative border-l-4 border-main-blue/70 pl-6 pb-8">
+          <span className="absolute -left-2.5 top-0 w-4 h-4 bg-main-bluedark rounded-full"></span>
+            <h3 className="text-xl leading-none mb-1 text-main-blue">
               Virtual Assistant
             </h3>
-            <h4 className="text-lg text-main-bluedark brightness-110">
+            <h4 className="text-lg italic text-main-bluedark brightness-110">
               Start Virtual, Remote Company
             </h4>
             <p className="text-sm text-theme-text">July – December 2021</p>
@@ -110,12 +110,12 @@ export default function Experience() {
               a real estate investor.
             </p>
           </div>
-          <div className="relative border-l-4 border-main-blue pl-6 pb-8">
-            <span className="absolute -left-3 top-0 w-5 h-5 bg-main-bluedark rounded-full"></span>
-            <h3 className="text-xl leading-none mb-1 font-bold text-main-blue">
+          <div className="relative border-l-4 border-main-blue/70 pl-6 pb-8">
+          <span className="absolute -left-2.5 top-0 w-4 h-4 bg-main-bluedark rounded-full"></span>
+            <h3 className="text-xl leading-none mb-1 text-main-blue">
               Technical Support Specialist
             </h3>
-            <h4 className="text-lg text-main-bluedark brightness-110">
+            <h4 className="text-lg italic text-main-bluedark brightness-110">
               Sitel Philippines, Puerto Princesa City
             </h4>
             <p className="text-sm text-theme-text">April 2019 – July 2021</p>
@@ -125,11 +125,11 @@ export default function Experience() {
             </p>
           </div>
           <div className="relative  pl-7 pb-8">
-            <span className="absolute -left-2 top-0 w-5 h-5 bg-main-bluedark rounded-full"></span>
-            <h3 className="text-xl leading-none mb-1 font-bold text-main-blue">
+            <span className="absolute -left-1.5 top-0 w-4 h-4 bg-main-bluedark rounded-full"></span>
+            <h3 className="text-xl leading-none mb-1 text-main-blue">
               Service Crew
             </h3>
-            <h4 className="text-lg text-main-bluedark brightness-110">
+            <h4 className="text-lg italic text-main-bluedark brightness-110">
               McDonalds, Puerto Princesa City
             </h4>
             <p className="text-sm text-theme-text">August 2017 – March 2019</p>
