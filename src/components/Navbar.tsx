@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Link } from "react-scroll";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { cn } from "@/lib/utils";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
