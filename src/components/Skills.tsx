@@ -3,7 +3,19 @@ import { motion, useAnimation, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import Image from "next/image";
+
+interface SkillCategory {
+  title: string;
+  skills: string[];
+}
 
 export default function Skills() {
   const controls = useAnimation();
@@ -29,34 +41,33 @@ export default function Skills() {
   };
 
   const tabContentVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       x: 20,
-      scale: 0.95
+      scale: 0.95,
     },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       x: 0,
       scale: 1,
-      transition: { 
-        duration: 0.5, 
+      transition: {
+        duration: 0.5,
         ease: "easeOut",
-        staggerChildren: 0.1
-      }
+        staggerChildren: 0.1,
+      },
     },
-    exit: { 
-      opacity: 0, 
+    exit: {
+      opacity: 0,
       x: -20,
       scale: 0.95,
-      transition: { 
-        duration: 0.3, 
-        ease: "easeIn" 
-      }
-    }
+      transition: {
+        duration: 0.3,
+        ease: "easeIn",
+      },
+    },
   };
 
   const skillCategories = {
-
     frontend: {
       title: "Frontend & Web Design",
       skills: [
@@ -73,7 +84,7 @@ export default function Skills() {
         "Wordpress",
         "Wix",
         "Shopify",
-      ]
+      ],
     },
     backend: {
       title: "Backend",
@@ -89,14 +100,11 @@ export default function Skills() {
         "AWS",
         "Firebase",
         "Supabase",
-      ]
+      ],
     },
     mobile: {
       title: "Mobile Application",
-      skills: [
-        "Flutter",
-        "React Native",
-      ]
+      skills: ["Flutter", "React Native"],
     },
     other: {
       title: "Other Skills",
@@ -106,37 +114,37 @@ export default function Skills() {
         "CI/CD Pipelines",
         "CRM Systems",
         "Digital Marketing",
-      ]
-    }
+      ],
+    },
   };
 
   // Skill to image mapping
   const skillImages: Record<string, string> = {
-    "JavaScript": "/assets/skills/JS.png",
-    "TypeScript": "/assets/skills/TS.png",
-    "React": "/assets/skills/React.png",
+    JavaScript: "/assets/skills/JS.png",
+    TypeScript: "/assets/skills/TS.png",
+    React: "/assets/skills/React.png",
     "Next.js": "/assets/skills/nextjs.png",
-    "Vue": "/assets/skills/vue.png",
-    "Angular": "/assets/skills/angular.png",
-    "Astro": "/assets/skills/Astro.png",
-    "CSS": "/assets/skills/css.png",
-    "Tailwind": "/assets/skills/tailwind.png",
-    "Bootstrap": "/assets/skills/bootstrap.png",
-    "Wordpress": "/assets/skills/wordpress.png",
-    "Wix": "/assets/skills/wix.png",
-    "Shopify": "/assets/skills/shopify.png",
-    "Golang": "/assets/skills/golang.png",
+    Vue: "/assets/skills/vue.png",
+    Angular: "/assets/skills/angular.png",
+    Astro: "/assets/skills/Astro.png",
+    CSS: "/assets/skills/css.png",
+    Tailwind: "/assets/skills/tailwind.png",
+    Bootstrap: "/assets/skills/bootstrap.png",
+    Wordpress: "/assets/skills/wordpress.png",
+    Wix: "/assets/skills/wix.png",
+    Shopify: "/assets/skills/shopify.png",
+    Golang: "/assets/skills/golang.png",
     "C#": "/assets/skills/CSharp.png",
     "Node.js": "/assets/skills/nodejs.png",
-    "Python": "/assets/skills/python.png",
-    "Django": "/assets/skills/django.png",
-    "PHP": "/assets/skills/php.png",
-    "Laravel": "/assets/skills/laravel.png",
-    "CodeIgniter": "/assets/skills/codeigniter.png",
-    "AWS": "/assets/skills/aws.png",
-    "Firebase": "/assets/skills/firebase.png",
-    "Supabase": "/assets/skills/supabase.png",
-    "Flutter": "/assets/skills/flutter.png",
+    Python: "/assets/skills/python.png",
+    Django: "/assets/skills/django.png",
+    PHP: "/assets/skills/php.png",
+    Laravel: "/assets/skills/laravel.png",
+    CodeIgniter: "/assets/skills/codeigniter.png",
+    AWS: "/assets/skills/aws.png",
+    Firebase: "/assets/skills/firebase.png",
+    Supabase: "/assets/skills/supabase.png",
+    Flutter: "/assets/skills/flutter.png",
     "React Native": "/assets/skills/react.png",
     "Git & GitHub": "/assets/skills/git.png",
     "REST APIs": "/assets/skills/rest-api-icon.png",
@@ -145,10 +153,12 @@ export default function Skills() {
   // Dynamically merge all skills from skillCategories
   const allSkills = {
     title: "All Skills",
-    skills: Object.values(skillCategories).flatMap(category => category.skills)
+    skills: Object.values(skillCategories).flatMap(
+      (category) => category.skills
+    ),
   };
 
-  const SkillCard = ({ category, skills }: { category: string; skills: string[] }) => (
+  const SkillCard = ({ skills }: { skills: string[] }) => (
     <motion.div
       className="bg-main-bluedark/20 p-3 md:p-6 rounded-3xl h-fit shadow-lg w-full flex flex-col items-center justify-center"
       variants={fadeIn}
@@ -161,28 +171,36 @@ export default function Skills() {
             className="backdrop-blur-sm bg-white/10 rounded-2xl px-3 py-2 md:px-4 text-white text-xs md:text-sm whitespace-nowrap border border-main-blue/30 hover:bg-main-blue/30 transition-all duration-300 h-24 md:h-28 flex flex-col items-center justify-center w-[100px] md:w-[120px] gap-1 md:gap-2"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ 
-              duration: 0.4, 
+            transition={{
+              duration: 0.4,
               delay: index * 0.1,
-              ease: "easeOut"
+              ease: "easeOut",
             }}
             whileHover={{ scale: 1.05 }}
           >
-                          {skillImages[skill] && (
-                <img 
-                  src={skillImages[skill]} 
-                  alt={skill}
-                  className="w-12 h-12 md:w-16 md:h-16 object-contain flex-shrink-0 rounded-md"
-                />
-                            )}
-              <span className="text-center">{skill}</span>
-            </motion.div>
-          ))}
-        </div>
+            {skillImages[skill] && (
+              <Image
+                width={100}
+                height={100}
+                src={skillImages[skill]}
+                alt={skill}
+                className="w-12 h-12 md:w-16 md:h-16 object-contain flex-shrink-0 rounded-md"
+              />
+            )}
+            <span className="text-center">{skill}</span>
+          </motion.div>
+        ))}
+      </div>
     </motion.div>
   );
 
-  const AnimatedTabContent = ({ children, tabKey }: { children: React.ReactNode; tabKey: string }) => (
+  const AnimatedTabContent = ({
+    children,
+    tabKey,
+  }: {
+    children: React.ReactNode;
+    tabKey: string;
+  }) => (
     <motion.div
       key={tabKey}
       variants={tabContentVariants}
@@ -194,24 +212,20 @@ export default function Skills() {
     </motion.div>
   );
 
-  const SingleCategoryView = ({ category }: { category: any }) => (
+  const SingleCategoryView = ({ category }: { category: SkillCategory }) => (
     <div className="flex justify-center">
       <div className="w-full">
-        <SkillCard category={category.title} skills={category.skills} />
+        <SkillCard skills={category.skills} />
       </div>
     </div>
   );
 
   return (
-    <section
-      ref={ref}
-      id="skills"
-      className="pt-20 text-theme-text relative"
-    >
+    <section ref={ref} id="skills" className="pt-20 text-theme-text relative">
       <h2 className="text-center relative text-4xl md:text-5xl font-montserrat text-main-blue mb-8 z-10">
         Skills
       </h2>
-      
+
       <motion.div
         className="mx-auto relative z-10 max-w-6xl px-4"
         variants={fadeIn}
@@ -226,19 +240,34 @@ export default function Skills() {
                 <SelectValue placeholder="Select skills category" />
               </SelectTrigger>
               <SelectContent className="bg-black/90 backdrop-blur-md border border-main-blue/30 rounded-2xl">
-                <SelectItem value="all" className="text-white data-[state=active]:text-white text-base hover:bg-main-blue/20 focus:bg-main-blue/30 rounded-xl font-montserrat">
+                <SelectItem
+                  value="all"
+                  className="text-white data-[state=active]:text-white text-base hover:bg-main-blue/20 focus:bg-main-blue/30 rounded-xl font-montserrat"
+                >
                   All Skills
                 </SelectItem>
-                <SelectItem value="frontend" className="text-white data-[state=active]:text-white text-base hover:bg-main-blue/20 focus:bg-main-blue/30 rounded-xl font-montserrat">
+                <SelectItem
+                  value="frontend"
+                  className="text-white data-[state=active]:text-white text-base hover:bg-main-blue/20 focus:bg-main-blue/30 rounded-xl font-montserrat"
+                >
                   Frontend & Web Design
                 </SelectItem>
-                <SelectItem value="backend" className="text-white data-[state=active]:text-white text-base hover:bg-main-blue/20 focus:bg-main-blue/30 rounded-xl font-montserrat">
+                <SelectItem
+                  value="backend"
+                  className="text-white data-[state=active]:text-white text-base hover:bg-main-blue/20 focus:bg-main-blue/30 rounded-xl font-montserrat"
+                >
                   Backend
                 </SelectItem>
-                <SelectItem value="mobile" className="text-white data-[state=active]:text-white text-base hover:bg-main-blue/20 focus:bg-main-blue/30 rounded-xl font-montserrat">
+                <SelectItem
+                  value="mobile"
+                  className="text-white data-[state=active]:text-white text-base hover:bg-main-blue/20 focus:bg-main-blue/30 rounded-xl font-montserrat"
+                >
                   Mobile Application
                 </SelectItem>
-                <SelectItem value="other" className="text-white data-[state=active]:text-white text-base hover:bg-main-blue/20 focus:bg-main-blue/30 rounded-xl font-montserrat">
+                <SelectItem
+                  value="other"
+                  className="text-white data-[state=active]:text-white text-base hover:bg-main-blue/20 focus:bg-main-blue/30 rounded-xl font-montserrat"
+                >
                   Other Skills
                 </SelectItem>
               </SelectContent>
@@ -247,23 +276,38 @@ export default function Skills() {
 
           {/* Tablet/Desktop Tabs */}
           <TabsList className="hidden sm:grid w-full grid-cols-5 mb-8 bg-black/20 backdrop-blur-sm rounded-2xl overflow-hidden p-0 h-auto gap-1">
-            <TabsTrigger value="all" className="py-2 px-3 md:py-4 md:px-4 text-xs md:text-sm text-white data-[state=active]:bg-main-blue data-[state=active]:text-black font-montserrat transition-all duration-300">
+            <TabsTrigger
+              value="all"
+              className="py-2 px-3 md:py-4 md:px-4 text-xs md:text-sm text-white data-[state=active]:bg-main-blue data-[state=active]:text-black font-montserrat transition-all duration-300"
+            >
               All
             </TabsTrigger>
-            <TabsTrigger value="frontend" className="py-2 px-3 md:py-4 md:px-4 text-xs md:text-sm text-white data-[state=active]:bg-main-blue data-[state=active]:text-black font-montserrat transition-all duration-300">
+            <TabsTrigger
+              value="frontend"
+              className="py-2 px-3 md:py-4 md:px-4 text-xs md:text-sm text-white data-[state=active]:bg-main-blue data-[state=active]:text-black font-montserrat transition-all duration-300"
+            >
               Frontend
             </TabsTrigger>
-            <TabsTrigger value="backend" className="py-2 px-3 md:py-4 md:px-4 text-xs md:text-sm text-white data-[state=active]:bg-main-blue data-[state=active]:text-black font-montserrat transition-all duration-300">
+            <TabsTrigger
+              value="backend"
+              className="py-2 px-3 md:py-4 md:px-4 text-xs md:text-sm text-white data-[state=active]:bg-main-blue data-[state=active]:text-black font-montserrat transition-all duration-300"
+            >
               Backend
             </TabsTrigger>
-            <TabsTrigger value="mobile" className="py-2 px-3 md:py-4 md:px-4 text-xs md:text-sm text-white data-[state=active]:bg-main-blue data-[state=active]:text-black font-montserrat transition-all duration-300">
+            <TabsTrigger
+              value="mobile"
+              className="py-2 px-3 md:py-4 md:px-4 text-xs md:text-sm text-white data-[state=active]:bg-main-blue data-[state=active]:text-black font-montserrat transition-all duration-300"
+            >
               Mobile
             </TabsTrigger>
-            <TabsTrigger value="other" className="py-2 px-3 md:py-4 md:px-4 text-xs md:text-sm text-white data-[state=active]:bg-main-blue data-[state=active]:text-black font-montserrat transition-all duration-300">
+            <TabsTrigger
+              value="other"
+              className="py-2 px-3 md:py-4 md:px-4 text-xs md:text-sm text-white data-[state=active]:bg-main-blue data-[state=active]:text-black font-montserrat transition-all duration-300"
+            >
               Other
             </TabsTrigger>
           </TabsList>
-          
+
           <div className="relative min-h-[300px]">
             <AnimatePresence mode="wait">
               {activeTab === "all" && (
@@ -273,7 +317,7 @@ export default function Skills() {
                   </AnimatedTabContent>
                 </TabsContent>
               )}
-              
+
               {activeTab === "frontend" && (
                 <TabsContent value="frontend" className="mt-6">
                   <AnimatedTabContent tabKey="frontend">
@@ -281,7 +325,7 @@ export default function Skills() {
                   </AnimatedTabContent>
                 </TabsContent>
               )}
-              
+
               {activeTab === "backend" && (
                 <TabsContent value="backend" className="mt-6">
                   <AnimatedTabContent tabKey="backend">
@@ -289,7 +333,7 @@ export default function Skills() {
                   </AnimatedTabContent>
                 </TabsContent>
               )}
-              
+
               {activeTab === "mobile" && (
                 <TabsContent value="mobile" className="mt-6">
                   <AnimatedTabContent tabKey="mobile">
@@ -297,7 +341,7 @@ export default function Skills() {
                   </AnimatedTabContent>
                 </TabsContent>
               )}
-              
+
               {activeTab === "other" && (
                 <TabsContent value="other" className="mt-6">
                   <AnimatedTabContent tabKey="other">
