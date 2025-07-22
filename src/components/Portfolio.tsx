@@ -96,7 +96,7 @@ export default function Portfolio() {
   };
 
   return (
-    <section id="portfolio" className="py-20" ref={ref}>
+    <section id="portfolio" className="pt-20" ref={ref}>
       <h2 className="text-center text-main-blue text-4xl md:text-5xl font-montserrat mb-4">
         Portfolio
       </h2>

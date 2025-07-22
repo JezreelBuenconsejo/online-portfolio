@@ -111,7 +111,6 @@ export default function AnimatedBackground() {
         style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, rgba(55,175,225,0.9) 1px, transparent 0)`,
           backgroundSize: '40px 40px',
-          y: useTransform(scrollYProgress, [0, 1], ["0%", "30%"])
         }}
       />
     </div>

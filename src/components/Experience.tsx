@@ -28,7 +28,7 @@ export default function Experience() {
     <section
       ref={ref}
       id="experience"
-      className="py-20 text-theme-text"
+      className="pt-20 text-theme-text"
     >
       <h2 className="text-center text-4xl md:text-5xl font-montserrat mb-8 text-main-blue">
         Experience
