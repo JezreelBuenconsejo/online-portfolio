@@ -1,8 +1,86 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
   @apply font-sans; 
+}
+
+/* Smooth transitions for better UX */
+* {
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Better scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #191919;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #37AFE1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0096FF;
+}
+
+/* Loading Screen Animations */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-fast {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes pulse-scale {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+  50% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+}
+
+@keyframes pulse-dots {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+@keyframes orb-pulse-1 {
+  0%, 100% { transform: scale(1); opacity: 0.1; }
+  50% { transform: scale(1.2); opacity: 0.2; }
+}
+
+@keyframes orb-pulse-2 {
+  0%, 100% { transform: scale(1.2); opacity: 0.08; }
+  50% { transform: scale(1); opacity: 0.15; }
+}
+
+.spinner-outer {
+  animation: spin-slow 3s linear infinite;
+}
+
+.spinner-inner {
+  animation: spin-fast 2s linear infinite;
+}
+
+.center-dot {
+  animation: pulse-scale 1.5s ease-in-out infinite;
+}
+
+.loading-dots {
+  animation: pulse-dots 1.5s ease-in-out infinite;
+}
+
+.orb-1 {
+  animation: orb-pulse-1 3s ease-in-out infinite;
+}
+
+.orb-2 {
+  animation: orb-pulse-2 2.5s ease-in-out infinite;
 }

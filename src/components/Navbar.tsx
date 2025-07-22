@@ -1,11 +1,22 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-scroll';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const { scrollY } = useScroll();
+
+  // Listen to scroll changes
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    if (latest > 100) {
+      setIsScrolled(true);
+    } else {
+      setIsScrolled(false);
+    }
+  });
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -23,8 +34,28 @@ export default function Navbar() {
     open: { rotate: 90 }, 
   };
 
+  // Navbar background variants
+  const navVariants = {
+    transparent: {
+      backgroundColor: "rgba(25, 25, 25, 0)",
+      backdropFilter: "blur(0px)",
+      boxShadow: "0 0 0 rgba(0, 0, 0, 0)",
+    },
+    scrolled: {
+      backgroundColor: "rgba(25, 25, 25, 0.9)",
+      backdropFilter: "blur(12px)",
+      boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
+    }
+  };
+
   return (
-    <nav className="bg-theme-background shadow-md p-4 fixed w-full top-0 z-20 flex justify-between items-center">
+    <motion.nav 
+      className="p-4 fixed w-full top-0 z-20 flex justify-between items-center transition-all duration-100"
+      initial="transparent"
+      animate={isScrolled ? "scrolled" : "transparent"}
+      variants={navVariants}
+      transition={{ duration: 0.1, ease: "easeInOut" }}
+    >
       {/* Navbar for Desktop */}
       <div className="hidden md:flex space-x-14 mx-auto px-5 md:px-10 xl:px-24">
         {['Skills', 'Experience', 'Portfolio', 'Contact'].map((section) => (
@@ -33,7 +64,7 @@ export default function Navbar() {
             to={section.toLowerCase()} 
             smooth={true} 
             offset={-70} 
-            className="hover:text-main-bluedark cursor-pointer transition-all duration-300 font-bold text-xl text-theme-text"
+            className="hover:text-main-bluedark cursor-pointer transition-all duration-300 font-montserrat text-xl text-theme-text"
           >
             {section}
           </Link>
@@ -57,7 +88,14 @@ export default function Navbar() {
         initial="hidden"
         animate={isOpen ? 'visible' : 'hidden'}
         variants={dropdownVariants}
-        className="absolute top-16 left-0 w-full bg-theme-background shadow-lg flex flex-col items-start px-5 space-y-6 py-6 md:hidden overflow-hidden"
+        className={`absolute top-16 left-0 w-full shadow-lg flex flex-col items-start px-5 space-y-6 py-6 md:hidden overflow-hidden ${
+          isScrolled 
+            ? 'bg-theme-background/95 backdrop-blur-md' 
+            : 'bg-theme-background/80'
+        }`}
+        style={{
+          backdropFilter: isScrolled ? 'blur(12px)' : 'blur(4px)',
+        }}
       >
         {['Skills', 'Experience', 'Portfolio', 'Contact'].map((section) => (
           <Link 
@@ -72,6 +110,6 @@ export default function Navbar() {
           </Link>
         ))}
       </motion.div>
-    </nav>
+    </motion.nav>
   );
 }
