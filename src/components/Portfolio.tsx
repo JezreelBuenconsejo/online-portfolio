@@ -9,6 +9,13 @@ import Image from "next/image";
 // Projects data array
 const projects = [
   {
+    id: 0,
+    title: "AI Story Generator",
+    subtitle: "(MVP achieved - Developing into AI Agent)",
+    href: "https://ai-agent-one.vercel.app/",
+    image: "/assets/portfolio/ai-agent.png",
+  },
+  {
     id: 1,
     title: "Sales Tracker & POS System",
     subtitle: "(In Development)",
@@ -23,6 +30,13 @@ const projects = [
     image: "/assets/portfolio/axl-pastries/pic1.png",
   },
   {
+    id: 23,
+    title: "Web Scraper",
+    subtitle: "Qoutes, Reddit & Tiktok",
+    href: "https://diligent-spontaneity-production-95fb.up.railway.app/",
+    image: "/assets/portfolio/web-scraper.png",
+  },
+  {
     id: 3,
     title: "Fire Safety Store",
     subtitle: "(Static UI)",
@@ -35,6 +49,14 @@ const projects = [
     subtitle: "(Static UI)",
     href: "https://hotel-booking-jez.netlify.app/booking",
     image: "/assets/portfolio/hotel-booking.png",
+  },
+  {
+    id: 51,
+    title: "Netflix Landing Page Clone",
+    subtitle:
+      "(Might be tagged by Chrome as 'Not Secure', It's false Positive)",
+    href: "https://saas-clone-jez.netlify.app/",
+    image: "/assets/portfolio/netflix.png",
   },
   {
     id: 5,
@@ -77,7 +99,7 @@ export default function Portfolio() {
   const controls = useAnimation();
   const [ref, inView] = useInView({
     triggerOnce: true,
-    threshold: 0.2,
+    threshold: 0.1,
   });
 
   useEffect(() => {
@@ -105,7 +127,7 @@ export default function Portfolio() {
         most my client work due to Non-Disclosure Agreements (NDAs) I have
         signed.
       </p>
-      
+
       <motion.div
         className="mx-auto grid grid-cols-1 md:grid-cols-3 gap-14 md:gap-6"
         variants={fadeIn}
@@ -115,16 +137,23 @@ export default function Portfolio() {
         {projects.map((project) => (
           <Link
             key={project.id}
-            className="relative shadow-lg overflow-hidden flex items-center justify-center text-gray-700"
+            className="relative md:shadow-lg overflow-hidden flex items-center justify-center text-gray-700"
             href={project.href}
             target="_blank"
           >
             <div className="space-y-2 flex flex-col justify-end h-full text-center text-white group text-base tracking-wide">
-              <h3 className="group-hover:text-main-blue transition-all duration-300">
-                {project.title} {project.subtitle && <span className="italic">{project.subtitle}</span>}
-              </h3>
-              <div className="overflow-hidden h-full md:max-h-[190px]">
-                <div className="w-fit h-full overflow-hidden rounded-xl mx-auto relative">
+              <div className="flex h-full flex-col items-center justify-center flex-1">
+                <h3 className="group-hover:text-main-blue transition-all duration-300 text-lg">
+                  {project.title}
+                </h3>
+                <p className="text-sm">
+                  {project.subtitle && (
+                    <span className="italic">{project.subtitle}</span>
+                  )}
+                </p>
+              </div>
+              <div className="overflow-hidden h-full w-full md:max-h-[190px] md:h-[190px]">
+                <div className="md:w-fit h-full overflow-hidden rounded-xl mx-auto relative">
                   <Image
                     width={300}
                     height={190}
