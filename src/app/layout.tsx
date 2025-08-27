@@ -6,10 +6,10 @@ import ClientWrapper from "@/components/ClientWrapper";
 import Script from "next/script";
 
 export const metadata: Metadata = {
-  title: "Jez Buenconsejo | Full Stack Developer",
-  description: "Portfolio of Jez Buenconsejo – Full Stack Developer skilled in TypeScript, React, Go, and more.",
+  title: "Jezreel Buenconsejo | Full Stack Developer",
+  description: "Portfolio of Jezreel Buenconsejo – Full Stack Developer skilled in TypeScript, React, Go, and more.",
   openGraph: {
-    title: "Jez Buenconsejo | Full Stack Developer",
+    title: "Jezreel Buenconsejo | Full Stack Developer",
     description: "Explore my portfolio, projects, and tech stack.",
     url: "https://jezreelbuenconsejo.netlify.app", // or your custom domain
     type: "website",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jez Buenconsejo | Full Stack Developer",
+    title: "Jezreel Buenconsejo | Full Stack Developer",
     description: "Explore my portfolio, projects, and tech stack.",
     images: ["https://example.com/og-image.png"],
   },
