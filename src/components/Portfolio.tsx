@@ -37,6 +37,14 @@ const projects = [
     image: "/assets/portfolio/web-scraper.png",
   },
   {
+    id: 51,
+    title: "Netflix Landing Page Clone",
+    subtitle:
+      "(Might be tagged by Chrome as 'Not Secure', It's false Positive)",
+    href: "https://saas-clone-jez.netlify.app/",
+    image: "/assets/portfolio/netflix.png",
+  },
+  {
     id: 3,
     title: "Fire Safety Store",
     subtitle: "(Static UI)",
@@ -49,14 +57,6 @@ const projects = [
     subtitle: "(Static UI)",
     href: "https://hotel-booking-jez.netlify.app/booking",
     image: "/assets/portfolio/hotel-booking.png",
-  },
-  {
-    id: 51,
-    title: "Netflix Landing Page Clone",
-    subtitle:
-      "(Might be tagged by Chrome as 'Not Secure', It's false Positive)",
-    href: "https://saas-clone-jez.netlify.app/",
-    image: "/assets/portfolio/netflix.png",
   },
   {
     id: 5,
