@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     description: "Explore my portfolio, projects, and tech stack.",
     images: ["https://example.com/og-image.png"],
   },
-  metadataBase: new URL("https://jezreelbuenconsejo.netlify.app"),
+  metadataBase: new URL("https://www.jezreelbuenconsejo.com/"),
 };
 
 export default function RootLayout({
