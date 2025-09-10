@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Jezreel Buenconsejo | Full Stack Developer",
     description: "Explore my portfolio, projects, and tech stack.",
-    url: "https://jezreelbuenconsejo.com/",
+    url: "https://www.jezreelbuenconsejo.com/",
     type: "website",
     images: [
       {
