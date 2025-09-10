@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Jezreel Buenconsejo | Full Stack Developer",
     description: "Explore my portfolio, projects, and tech stack.",
-    url: "https://jezreelbuenconsejo.netlify.app", // or your custom domain
+    url: "https://jezreelbuenconsejo.com/",
     type: "website",
     images: [
       {
