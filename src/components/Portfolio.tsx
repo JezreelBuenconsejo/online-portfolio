@@ -30,6 +30,14 @@ const projects = [
     image: "/assets/portfolio/axl-pastries/pic1.png",
   },
   {
+    id: 99,
+    title: "Axl Tees",
+    subtitle: "(In Development, Static UI)",
+    href: "https://axl-tees.vercel.app/",
+    image: "/assets/portfolio/axl-tees.png",
+  },
+  
+  {
     id: 23,
     title: "Web Scraper",
     subtitle: "Qoutes, Reddit & Tiktok",
