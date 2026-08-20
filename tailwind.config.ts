@@ -1,5 +1,8 @@
 import type { Config } from "tailwindcss";
 
+/** Consume a CSS custom property holding an "R G B" triplet. */
+const rgb = (v: string) => `rgb(var(${v}) / <alpha-value>)`;
+
 const config: Config = {
   darkMode: ["class"],
   content: [
@@ -10,27 +13,56 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Token-backed palette. Values live in globals.css.
+        void: rgb("--void"),
+        surface: rgb("--surface"),
+        elevated: rgb("--elevated"),
+        line: rgb("--border"),
+        "line-bright": rgb("--border-bright"),
+        accent: {
+          DEFAULT: rgb("--accent"),
+          deep: rgb("--accent-deep"),
+        },
+        ink: {
+          DEFAULT: rgb("--text-primary"),
+          muted: rgb("--text-muted"),
+          dim: rgb("--text-dim"),
+        },
+
+        // Legacy aliases — kept so existing components keep compiling
+        // while sections are migrated phase by phase.
         main: {
-          blue: "#37AFE1", // Bright blue
-          bluedark: "#0096FF", // Darker blue
+          blue: rgb("--accent"),
+          bluedark: rgb("--accent-deep"),
         },
         theme: {
-          background: "#191919", // Dark background
-          text: "#FFFFFF", // White text
+          background: rgb("--void"),
+          text: rgb("--text-primary"),
         },
       },
+      fontFamily: {
+        // Bound to next/font CSS variables set in layout.tsx.
+        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
+        display: ["var(--font-display)", "system-ui", "sans-serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+        // Legacy alias: existing markup uses font-montserrat for headings.
+        montserrat: ["var(--font-display)", "system-ui", "sans-serif"],
+      },
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
       },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+      transitionTimingFunction: {
+        out: "var(--ease-out)",
+        "in-out": "var(--ease-in-out)",
       },
-	  fontFamily: {
-		sans: ['Inter', 'sans-serif'],
-		montserrat: ['Montserrat', 'sans-serif'],
-	  },
+      transitionDuration: {
+        fast: "var(--dur-fast)",
+        base: "var(--dur-base)",
+        slow: "var(--dur-slow)",
+      },
+      maxWidth: {
+        measure: "var(--measure)",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

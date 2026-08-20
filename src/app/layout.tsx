@@ -3,60 +3,65 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import AnimatedBackground from "@/components/AnimatedBackground";
 import ClientWrapper from "@/components/ClientWrapper";
+import SmoothScroll from "@/components/motion/SmoothScroll";
 import Script from "next/script";
-import { Lato } from "next/font/google";
+import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import React from "react";
+import { site, contact } from "@/data/site";
 
-const lato = Lato({
+/* Self-hosted by next/font: no external request, no layout shift.
+   Exposed as CSS variables that tailwind.config.ts binds to. */
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "700", "900"],
+  variable: "--font-inter",
   display: "swap",
 });
 
-// --- Site constants ---
-const siteUrl = "https://www.jezreelbuenconsejo.com";
-const siteName = "Jezreel Jose Buenconsejo — Software Developer";
-const siteDesc =
-  "Software Developer & Frontend Engineer (React/Next.js, TypeScript, Golang, Node.js) based in the Philippines. I build fast, accessible, and scalable web apps.";
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-display",
+  display: "swap",
+});
 
-// Viewport & theme color help CWV and SERP presentation
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono",
+  display: "swap",
+});
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0b0d12",
+  themeColor: "#0A0C10",
   colorScheme: "dark",
 };
 
-// Global SEO metadata
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(site.url),
   title: {
-    default: siteName,
-    template: "%s — Jezreel Jose Buenconsejo",
+    default: site.title,
+    template: `%s — ${site.name}`,
   },
-  description: siteDesc,
+  description: site.description,
   alternates: {
-    canonical: siteUrl,
+    canonical: site.url,
   },
   openGraph: {
     type: "website",
-    url: siteUrl,
-    siteName,
-    title: siteName,
-    description: siteDesc,
-    images: [
-      // Prefer a local dynamic OG: create /app/og/route.ts and use "/og"
-      { url: "/og.png", width: 1200, height: 630, alt: siteName },
-    ],
+    url: site.url,
+    siteName: site.title,
+    title: site.title,
+    description: site.description,
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: site.title }],
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: siteName,
-    description: siteDesc,
+    title: site.title,
+    description: site.description,
     images: ["/og.png"],
-    // site: "@your_handle",
-    // creator: "@your_handle",
   },
   robots: {
     index: true,
@@ -69,27 +74,25 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  icons: {
-    icon: "/favicon.ico",
-    apple: "/apple-touch-icon.png",
-  },
-  keywords: ["Jezreel Jose Buenconsejo", "Software Developer", "Frontend Engineer", "React", "Next.js", "TypeScript", "Golang", "Philippines"],
-
-  verification: {
-    // Replace with your real tokens once you add the property in GSC/Bing
-    // google: "GOOGLE_SEARCH_CONSOLE_CODE",
-    // other: { "msvalidate.01": "BING_WEBMASTER_CODE" },
-  },
+  keywords: [
+    "Jezreel Jose Buenconsejo",
+    "Software Developer",
+    "Frontend Engineer",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Golang",
+    "Philippines",
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  // JSON-LD: Person + WebSite (helps you rank #1 for your name)
   const jsonLdPerson = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: "Jezreel Jose Buenconsejo",
+    name: site.name,
     alternateName: ["Jez Buenconsejo", "Jezreel Buenconsejo"],
-    url: siteUrl,
+    url: site.url,
     jobTitle: "Software Developer / Frontend Engineer",
     worksFor: { "@type": "Organization", name: "Askrella" },
     knowsAbout: [
@@ -105,46 +108,47 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     ],
     address: {
       "@type": "PostalAddress",
-      addressCountry: "PH",
-      addressRegion: "Palawan",
-      addressLocality: "Puerto Princesa",
+      addressCountry: site.location.country,
+      addressRegion: site.location.region,
+      addressLocality: site.location.city,
     },
-    sameAs: [
-      "https://github.com/JezreelBuenconsejo",
-      "https://jez-buenconsejo.vercel.app",
-      "https://jezreelbuenconsejo.netlify.app",
-      // Add LinkedIn, X, StackOverflow, dev.to, etc.
-    ],
+    sameAs: [contact.github, "https://jez-buenconsejo.vercel.app"],
   };
 
   const jsonLdWebSite = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    url: siteUrl,
-    name: siteName,
+    url: site.url,
+    name: site.title,
     inLanguage: "en",
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${siteUrl}/search?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
   };
 
   return (
-    <html lang="en" className="h-full">
-      <body className={`antialiased bg-theme-background relative h-full ${lato.className}`}>
-        {/* Analytics: afterInteractive avoids blocking CWV */}
+    <html
+      lang="en"
+      className={`h-full ${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+    >
+      <body className="antialiased bg-void relative h-full font-sans">
         <Script
           src="https://cloud.umami.is/script.js"
           data-website-id="c76ba77f-398f-410b-b3d7-7b770d34c4cf"
           strategy="afterInteractive"
         />
 
-        <Script id="ld-person" type="application/ld+json" strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdPerson) }} />
-        <Script id="ld-website" type="application/ld+json" strategy="afterInteractive"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebSite) }} />
+        <Script
+          id="ld-person"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdPerson) }}
+        />
+        <Script
+          id="ld-website"
+          type="application/ld+json"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebSite) }}
+        />
 
+        <SmoothScroll />
 
         <ClientWrapper>
           <AnimatedBackground />

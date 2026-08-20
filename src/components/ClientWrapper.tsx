@@ -1,6 +1,5 @@
 "use client";
 import { useState, useEffect } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import LoadingScreen from "./LoadingScreen";
 
 interface ClientWrapperProps {
@@ -9,12 +8,18 @@ interface ClientWrapperProps {
 
 export default function ClientWrapper({ children }: ClientWrapperProps) {
   const [isLoading, setIsLoading] = useState(true);
+  const [isFading, setIsFading] = useState(false);
 
   useEffect(() => {
-    let timer: ReturnType<typeof setTimeout>;
+    let fadeTimer: ReturnType<typeof setTimeout>;
+    let removeTimer: ReturnType<typeof setTimeout>;
 
     const hide = () => {
-      timer = setTimeout(() => setIsLoading(false), 300);
+      fadeTimer = setTimeout(() => {
+        setIsFading(true);
+        // Unmount only after the CSS fade finishes.
+        removeTimer = setTimeout(() => setIsLoading(false), 400);
+      }, 300);
     };
 
     if (document.readyState === "complete") {
@@ -23,31 +28,29 @@ export default function ClientWrapper({ children }: ClientWrapperProps) {
       window.addEventListener("load", hide);
     }
 
-    // Fallback: never keep the overlay up on a slow/stalled asset.
-    const fallbackTimer = setTimeout(() => setIsLoading(false), 3000);
+    const fallback = setTimeout(() => {
+      setIsFading(true);
+      removeTimer = setTimeout(() => setIsLoading(false), 400);
+    }, 3000);
 
     return () => {
       window.removeEventListener("load", hide);
-      clearTimeout(timer);
-      clearTimeout(fallbackTimer);
+      clearTimeout(fadeTimer);
+      clearTimeout(removeTimer);
+      clearTimeout(fallback);
     };
   }, []);
 
   return (
     <>
-      <AnimatePresence>
-        {isLoading && (
-          <motion.div
-            key="loader"
-            className="fixed inset-0 z-50"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-          >
-            <LoadingScreen />
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {isLoading && (
+        <div
+          className="fixed inset-0 z-50 transition-opacity ease-in-out"
+          style={{ opacity: isFading ? 0 : 1, transitionDuration: "400ms" }}
+        >
+          <LoadingScreen />
+        </div>
+      )}
       {children}
     </>
   );

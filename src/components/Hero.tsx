@@ -1,58 +1,107 @@
 "use client";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
+/**
+ * Intro sequence runs on CSS transitions triggered one frame after mount,
+ * with the parallax on a shared rAF-throttled scroll listener.
+ */
 export default function Hero() {
-  const ref = useRef(null);
-  const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"]
-  });
+  const sectionRef = useRef<HTMLElement>(null);
+  const parallaxRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const h1Ref = useRef<HTMLHeadingElement>(null);
+  const pRef = useRef<HTMLParagraphElement>(null);
 
-  // Parallax effects for content
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
+  useEffect(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Entrance: flip to the final state on the next frame so the browser
+    // has a chance to paint the initial one first.
+    const raf = requestAnimationFrame(() => {
+      [imgRef, h1Ref, pRef].forEach((r) => {
+        if (r.current) {
+          r.current.style.opacity = "1";
+          r.current.style.transform = "none";
+        }
+      });
+    });
+
+    if (reduce) return () => cancelAnimationFrame(raf);
+
+    let ticking = false;
+    const update = () => {
+      const el = sectionRef.current;
+      const target = parallaxRef.current;
+      if (el && target) {
+        const h = el.offsetHeight || 1;
+        const p = Math.min(Math.max(window.scrollY / h, 0), 1);
+        target.style.transform = `translate3d(0, ${p * 10}%, 0)`;
+      }
+      ticking = false;
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
 
   return (
     <section
-      ref={ref}
+      ref={sectionRef}
       id="hero"
-      className="md:min-h-screen flex flex-col md:justify-center items-center px-4 pt-20 md:px-0 text-theme-text relative"
+      className="md:min-h-screen flex flex-col md:justify-center items-center px-4 pt-20 md:px-0 text-ink relative"
     >
-      <motion.div
-        className="flex gap-6 justify-center items-center w-full flex-col-reverse flex-wrap-reverse lg:flex-row relative z-10 max-w-sm sm:max-w-md md:max-w-none"
-        style={{ y: reduceMotion ? 0 : textY }}
+      <div
+        ref={parallaxRef}
+        className="flex gap-6 justify-center items-center w-full flex-col-reverse flex-wrap-reverse lg:flex-row relative z-10 max-w-sm sm:max-w-md md:max-w-none will-change-transform"
       >
         <div className="flex-1 max-w-[280px] sm:max-w-[320px] lg:max-w-[500px] flex justify-center">
-          <motion.img
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            ref={imgRef}
             src="/assets/Hero.png"
             alt="Jezreel Jose Buenconsejo"
-            className="w-40 sm:w-full md:min-w-40 drop-shadow-2xl"
-            initial={reduceMotion ? false : { scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: reduceMotion ? 0 : 1.2, ease: "easeOut" }}
-            whileHover={reduceMotion ? undefined : { scale: 1.05 }}
+            className="w-40 sm:w-full md:min-w-40 drop-shadow-2xl transition-all ease-out hover:scale-105"
+            style={{
+              opacity: 0,
+              transform: "scale(0.8)",
+              transitionDuration: "1200ms",
+            }}
           />
         </div>
         <div className="space-y-2 sm:space-y-3 md:space-y-4 text-center lg:text-left">
-          <motion.h1
-            className="text-3xl md:text-5xl lg:text-7xl font-extralight font-montserrat text-main-blue drop-shadow-lg leading-tight"
-            initial={reduceMotion ? false : { y: -50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: reduceMotion ? 0 : 1 }}
+          <h1
+            ref={h1Ref}
+            className="text-3xl md:text-5xl lg:text-7xl font-extralight font-display text-accent drop-shadow-lg leading-tight transition-all ease-out"
+            style={{
+              opacity: 0,
+              transform: "translate3d(0,-50px,0)",
+              transitionDuration: "1000ms",
+            }}
           >
             Jezreel Jose Buenconsejo
-          </motion.h1>
-          <motion.p
-            className="text-xl md:text-3xl lg:text-5xl font-montserrat font-extralight italic text-main-bluedark leading-relaxed"
-            initial={reduceMotion ? false : { y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: reduceMotion ? 0 : 1, delay: reduceMotion ? 0 : 0.5 }}
+          </h1>
+          <p
+            ref={pRef}
+            className="text-xl md:text-3xl lg:text-5xl font-display font-extralight italic text-accent-deep leading-relaxed transition-all ease-out delay-500"
+            style={{
+              opacity: 0,
+              transform: "translate3d(0,50px,0)",
+              transitionDuration: "1000ms",
+            }}
           >
             Full Stack Developer
-          </motion.p>
+          </p>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

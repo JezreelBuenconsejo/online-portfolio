@@ -1,6 +1,6 @@
 "use client";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { useState } from "react";
+import Reveal from "@/components/motion/Reveal";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Select,
@@ -16,45 +16,13 @@ interface SkillCategory {
   skills: string[];
 }
 
+type TabKey = "all" | "frontend" | "backend" | "mobile" | "other";
+
+const TAB_KEYS: TabKey[] = ["all", "frontend", "backend", "mobile", "other"];
+
 export default function Skills() {
-  const [activeTab, setActiveTab] = useState("all");
-  const reduceMotion = useReducedMotion();
-
-  const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: "easeInOut" },
-    },
-  };
-
-  const tabContentVariants = {
-    hidden: {
-      opacity: 0,
-      x: 20,
-      scale: 0.95,
-    },
-    visible: {
-      opacity: 1,
-      x: 0,
-      scale: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut",
-        staggerChildren: 0.1,
-      },
-    },
-    exit: {
-      opacity: 0,
-      x: -20,
-      scale: 0.95,
-      transition: {
-        duration: 0.3,
-        ease: "easeIn",
-      },
-    },
-  };
+  const [activeTab, setActiveTab] = useState<TabKey>("all");
+  const onTabChange = (v: string) => setActiveTab(v as TabKey);
 
   const skillCategories = {
     frontend: {
@@ -148,26 +116,16 @@ export default function Skills() {
   };
 
   const SkillCard = ({ skills }: { skills: string[] }) => (
-    <motion.div
-      className="bg-main-bluedark/20 p-3 md:p-6 rounded-3xl h-fit shadow-lg w-full flex flex-col items-center justify-center"
-      variants={fadeIn}
-      initial="hidden"
-      animate="visible"
-    >
+    <div className="bg-accent-deep/20 p-3 md:p-6 rounded-3xl h-fit shadow-lg w-full flex flex-col items-center justify-center">
       <div className="flex flex-wrap gap-2 md:gap-3 w-fit justify-center">
         {skills.map((skill, index) => (
-          <motion.div
-            key={index}
-            className="backdrop-blur-sm bg-white/10 rounded-2xl px-3 py-2 md:px-4 text-white text-xs md:text-sm whitespace-nowrap border border-main-blue/30 hover:bg-main-blue/30 transition-all duration-300 h-24 md:h-28 flex flex-col items-center justify-center w-[100px] md:w-[120px] gap-1 md:gap-2"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.4,
-              // Cap the cascade so long lists don't take seconds to finish.
-              delay: reduceMotion ? 0 : Math.min(index * 0.03, 0.6),
-              ease: "easeOut",
-            }}
-            whileHover={{ scale: 1.05 }}
+          <div
+            key={skill}
+            data-reveal=""
+            data-visible="true"
+            // Cascade is capped so long lists never feel sluggish.
+            style={{ transitionDelay: `${Math.min(index * 30, 600)}ms` }}
+            className="backdrop-blur-sm bg-white/10 rounded-2xl px-3 py-2 md:px-4 text-ink text-xs md:text-sm whitespace-nowrap border border-accent/30 hover:bg-accent/30 hover:scale-105 transition-all duration-fast h-24 md:h-28 flex flex-col items-center justify-center w-[100px] md:w-[120px] gap-1 md:gap-2"
           >
             {skillImages[skill] && (
               <Image
@@ -179,28 +137,10 @@ export default function Skills() {
               />
             )}
             <span className="text-center">{skill}</span>
-          </motion.div>
+          </div>
         ))}
       </div>
-    </motion.div>
-  );
-
-  const AnimatedTabContent = ({
-    children,
-    tabKey,
-  }: {
-    children: React.ReactNode;
-    tabKey: string;
-  }) => (
-    <motion.div
-      key={tabKey}
-      variants={tabContentVariants}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
-    >
-      {children}
-    </motion.div>
+    </div>
   );
 
   const SingleCategoryView = ({ category }: { category: SkillCategory }) => (
@@ -217,17 +157,11 @@ export default function Skills() {
         Skills
       </h2>
 
-      <motion.div
-        className="mx-auto relative z-10 max-w-6xl px-4"
-        variants={fadeIn}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.15 }}
-      >
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+      <Reveal className="mx-auto relative z-10 max-w-6xl px-4">
+        <Tabs value={activeTab} onValueChange={onTabChange} className="w-full">
           {/* Mobile Select Dropdown */}
           <div className="block sm:hidden mb-8">
-            <Select value={activeTab} onValueChange={setActiveTab}>
+            <Select value={activeTab} onValueChange={onTabChange}>
               <SelectTrigger className="w-full bg-black/20 backdrop-blur-sm text-white h-auto rounded-2xl p-3 text-lg font-montserrat border border-main-blue/30 focus:border-main-blue hover:bg-black/30 transition-colors duration-300">
                 <SelectValue placeholder="Select skills category" />
               </SelectTrigger>
@@ -301,50 +235,25 @@ export default function Skills() {
           </TabsList>
 
           <div className="relative min-h-[300px]">
-            <AnimatePresence mode="wait">
-              {activeTab === "all" && (
-                <TabsContent value="all" className="mt-6">
-                  <AnimatedTabContent tabKey="all">
-                    <SingleCategoryView category={allSkills} />
-                  </AnimatedTabContent>
+            {TAB_KEYS.map((key) => {
+              const category = key === "all" ? allSkills : skillCategories[key];
+              return (
+                <TabsContent key={key} value={key} className="mt-6">
+                  {/* key on the inner node restarts the CSS transition on
+                      every tab change, giving the crossfade for free. */}
+                  <div
+                    key={`${key}-${activeTab}`}
+                    data-reveal=""
+                    data-visible="true"
+                  >
+                    <SingleCategoryView category={category} />
+                  </div>
                 </TabsContent>
-              )}
-
-              {activeTab === "frontend" && (
-                <TabsContent value="frontend" className="mt-6">
-                  <AnimatedTabContent tabKey="frontend">
-                    <SingleCategoryView category={skillCategories.frontend} />
-                  </AnimatedTabContent>
-                </TabsContent>
-              )}
-
-              {activeTab === "backend" && (
-                <TabsContent value="backend" className="mt-6">
-                  <AnimatedTabContent tabKey="backend">
-                    <SingleCategoryView category={skillCategories.backend} />
-                  </AnimatedTabContent>
-                </TabsContent>
-              )}
-
-              {activeTab === "mobile" && (
-                <TabsContent value="mobile" className="mt-6">
-                  <AnimatedTabContent tabKey="mobile">
-                    <SingleCategoryView category={skillCategories.mobile} />
-                  </AnimatedTabContent>
-                </TabsContent>
-              )}
-
-              {activeTab === "other" && (
-                <TabsContent value="other" className="mt-6">
-                  <AnimatedTabContent tabKey="other">
-                    <SingleCategoryView category={skillCategories.other} />
-                  </AnimatedTabContent>
-                </TabsContent>
-              )}
-            </AnimatePresence>
+              );
+            })}
           </div>
         </Tabs>
-      </motion.div>
+      </Reveal>
     </section>
   );
 }
