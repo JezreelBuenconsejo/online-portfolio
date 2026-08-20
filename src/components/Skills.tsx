@@ -1,7 +1,6 @@
 "use client";
-import { motion, useAnimation, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
-import { useInView } from "react-intersection-observer";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Select,
@@ -18,18 +17,8 @@ interface SkillCategory {
 }
 
 export default function Skills() {
-  const controls = useAnimation();
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  });
   const [activeTab, setActiveTab] = useState("all");
-
-  useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    }
-  }, [controls, inView]);
+  const reduceMotion = useReducedMotion();
 
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
@@ -145,7 +134,7 @@ export default function Skills() {
     Firebase: "/assets/skills/firebase.png",
     Supabase: "/assets/skills/supabase.png",
     Flutter: "/assets/skills/flutter.png",
-    "React Native": "/assets/skills/react.png",
+    "React Native": "/assets/skills/React.png",
     "Git & GitHub": "/assets/skills/git.png",
     "REST APIs": "/assets/skills/rest-api-icon.png",
   };
@@ -162,7 +151,8 @@ export default function Skills() {
     <motion.div
       className="bg-main-bluedark/20 p-3 md:p-6 rounded-3xl h-fit shadow-lg w-full flex flex-col items-center justify-center"
       variants={fadeIn}
-      animate={controls}
+      initial="hidden"
+      animate="visible"
     >
       <div className="flex flex-wrap gap-2 md:gap-3 w-fit justify-center">
         {skills.map((skill, index) => (
@@ -173,7 +163,8 @@ export default function Skills() {
             animate={{ opacity: 1, y: 0 }}
             transition={{
               duration: 0.4,
-              delay: index * 0.1,
+              // Cap the cascade so long lists don't take seconds to finish.
+              delay: reduceMotion ? 0 : Math.min(index * 0.03, 0.6),
               ease: "easeOut",
             }}
             whileHover={{ scale: 1.05 }}
@@ -221,7 +212,7 @@ export default function Skills() {
   );
 
   return (
-    <section ref={ref} id="skills" className="pt-20 text-theme-text relative">
+    <section id="skills" className="pt-20 text-theme-text relative">
       <h2 className="text-center relative text-4xl md:text-5xl font-montserrat text-main-blue mb-8 z-10">
         Skills
       </h2>
@@ -230,7 +221,8 @@ export default function Skills() {
         className="mx-auto relative z-10 max-w-6xl px-4"
         variants={fadeIn}
         initial="hidden"
-        animate={controls}
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
       >
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           {/* Mobile Select Dropdown */}

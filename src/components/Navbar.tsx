@@ -1,8 +1,9 @@
 "use client";
 import { useState } from "react";
-import { Link } from "react-scroll";
 import { FaBars, FaTimes } from "react-icons/fa";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+
+const SECTIONS = ["Skills", "Experience", "Portfolio", "Contact"];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,11 +12,7 @@ export default function Navbar() {
 
   // Listen to scroll changes
   useMotionValueEvent(scrollY, "change", (latest) => {
-    if (latest > 100) {
-      setIsScrolled(true);
-    } else {
-      setIsScrolled(false);
-    }
+    setIsScrolled(latest > 100);
   });
 
   const toggleMenu = () => {
@@ -66,7 +63,7 @@ export default function Navbar() {
 
   return (
     <motion.nav
-      className="p-4 absolute md:fixed w-full top-0 z-20 flex justify-between items-center transition-all duration-100"
+      className="p-4 absolute md:fixed w-full top-0 z-20 flex justify-between items-center"
       initial="transparent"
       animate={getNavState()}
       variants={navVariants}
@@ -74,16 +71,14 @@ export default function Navbar() {
     >
       {/* Navbar for Desktop */}
       <div className="hidden md:flex space-x-14 mx-auto px-5 md:px-10 xl:px-24">
-        {["Skills", "Experience", "Portfolio", "Contact"].map((section) => (
-          <Link
+        {SECTIONS.map((section) => (
+          <a
             key={section}
-            to={section.toLowerCase()}
-            smooth={true}
-            offset={-70}
-            className="hover:text-main-bluedark cursor-pointer transition-all duration-300 font-montserrat text-xl text-theme-text"
+            href={`#${section.toLowerCase()}`}
+            className="hover:text-main-bluedark cursor-pointer transition-colors duration-300 font-montserrat text-xl text-theme-text"
           >
             {section}
-          </Link>
+          </a>
         ))}
       </div>
 
@@ -92,6 +87,8 @@ export default function Navbar() {
         <motion.button
           onClick={toggleMenu}
           className="text-theme-text text-3xl"
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isOpen}
           animate={isOpen ? "open" : "closed"}
           variants={iconVariants}
         >
@@ -106,17 +103,15 @@ export default function Navbar() {
         variants={dropdownVariants}
         className="absolute bg-theme-background top-16 left-0 w-full shadow-lg flex flex-col items-start px-5 space-y-6 py-6 md:hidden overflow-hidden"
       >
-        {["Skills", "Experience", "Portfolio", "Contact"].map((section) => (
-          <Link
+        {SECTIONS.map((section) => (
+          <a
             key={section}
-            to={section.toLowerCase()}
-            smooth={true}
-            offset={-70}
+            href={`#${section.toLowerCase()}`}
             onClick={toggleMenu}
-            className="hover:text-main-bluedark cursor-pointer transition-all duration-300 text-xl font-montserrat text-theme-text"
+            className="hover:text-main-bluedark cursor-pointer transition-colors duration-300 text-xl font-montserrat text-theme-text"
           >
             {section}
-          </Link>
+          </a>
         ))}
       </motion.div>
     </motion.nav>

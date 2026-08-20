@@ -1,7 +1,4 @@
-"use client";
-import { motion, useAnimation } from "framer-motion";
-import { useEffect } from "react";
-import { useInView } from "react-intersection-observer";
+import Reveal from "./Reveal";
 
 interface ExperienceItem {
   title: string;
@@ -11,76 +8,47 @@ interface ExperienceItem {
   isLast?: boolean;
 }
 
+const experiences: ExperienceItem[] = [
+  {
+    title: "Software Developer",
+    company: "Direct Client",
+    period: "March 2023 - Present",
+    description: "Freelance Software Developer with a strong background in building modern web-based applications and cross-platform mobile apps. Experienced in collaborating with international teams, delivering client-driven solutions, and managing end-to-end development — from architecture and implementation to deployment and maintenance. Known for writing clean, maintainable code and continuously improving systems for performance, scalability, and user experience."
+  },
+  {
+    title: "Executive Virtual Assistant (Operations and Database Manager)",
+    company: "Direct Client",
+    period: "February 2022 – February 2023",
+    description: "Managed client databases, digital ads, and transaction coordination for a real estate agent. Lead generation and social media management."
+  },
+  {
+    title: "Virtual Assistant",
+    company: "Start Virtual, Remote Company",
+    period: "July – December 2021",
+    description: "Handled cold calls, lead generation, and administrative tasks for a real estate investor."
+  },
+  {
+    title: "Technical Support Specialist",
+    company: "Sitel Philippines, Puerto Princesa City",
+    period: "April 2019 – July 2021",
+    description: "Provided technical support and customer service, resolving complex technical issues."
+  },
+  {
+    title: "Service Crew",
+    company: "McDonalds, Puerto Princesa City",
+    period: "August 2017 – March 2019",
+    description: "Worked as an all around service crew for McDonalds Philippines - Puerto Princesa Branch",
+    isLast: true
+  }
+];
+
 export default function Experience() {
-  const controls = useAnimation();
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.2,
-  });
-
-  useEffect(() => {
-    if (inView) {
-      controls.start("visible");
-    }
-  }, [controls, inView]);
-
-  const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: "easeInOut" },
-    },
-  };
-
-  const experiences: ExperienceItem[] = [
-    {
-      title: "Software Developer",
-      company: "Direct Client",
-      period: "March 2023 - Present",
-      description: "Freelance Software Developer with a strong background in building modern web-based applications and cross-platform mobile apps. Experienced in collaborating with international teams, delivering client-driven solutions, and managing end-to-end development — from architecture and implementation to deployment and maintenance. Known for writing clean, maintainable code and continuously improving systems for performance, scalability, and user experience."
-    },
-    {
-      title: "Executive Virtual Assistant (Operations and Database Manager)",
-      company: "Direct Client",
-      period: "February 2022 – February 2023",
-      description: "Managed client databases, digital ads, and transaction coordination for a real estate agent. Lead generation and social media management."
-    },
-    {
-      title: "Virtual Assistant",
-      company: "Start Virtual, Remote Company",
-      period: "July – December 2021",
-      description: "Handled cold calls, lead generation, and administrative tasks for a real estate investor."
-    },
-    {
-      title: "Technical Support Specialist",
-      company: "Sitel Philippines, Puerto Princesa City",
-      period: "April 2019 – July 2021",
-      description: "Provided technical support and customer service, resolving complex technical issues."
-    },
-    {
-      title: "Service Crew",
-      company: "McDonalds, Puerto Princesa City",
-      period: "August 2017 – March 2019",
-      description: "Worked as an all around service crew for McDonalds Philippines - Puerto Princesa Branch",
-      isLast: true
-    }
-  ];
   return (
-    <section
-      ref={ref}
-      id="experience"
-      className="pt-20 text-theme-text"
-    >
+    <section id="experience" className="pt-20 text-theme-text">
       <h2 className="text-center text-4xl md:text-5xl font-montserrat mb-8 text-main-blue">
         Experience
       </h2>
-      <motion.div
-        className="mx-auto"
-        variants={fadeIn}
-        initial="hidden"
-        animate={controls}
-      >
+      <Reveal className="mx-auto">
         <div className="relative max-w-4xl mx-auto">
           {experiences.map((experience, index) => (
             <div
@@ -111,7 +79,7 @@ export default function Experience() {
             </div>
           ))}
         </div>
-      </motion.div>
+      </Reveal>
     </section>
   );
 }
