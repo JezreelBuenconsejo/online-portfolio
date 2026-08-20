@@ -111,7 +111,7 @@ export default function Hero() {
       >
         <div className="flex-1 flex justify-center lg:justify-start">
           <Image
-            src="/assets/Hero.png"
+            src="/assets/Hero.webp"
             alt={site.name}
             width={480}
             height={480}
