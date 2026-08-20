@@ -125,7 +125,7 @@ export default function Statement() {
           <p
             key={line}
             data-line=""
-            className="font-display text-2xl sm:text-3xl md:text-[2.6rem] xl:text-[3.1rem] font-light leading-[1.3] tracking-tight text-ink text-balance
+            className="font-display text-2xl sm:text-3xl md:text-[2.6rem] xl:text-5xl font-light leading-[1.3] tracking-tight text-ink text-balance
               opacity-0 group-data-[static=true]/stmt:opacity-100"
           >
             {line}
