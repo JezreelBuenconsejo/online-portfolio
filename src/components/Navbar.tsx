@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 import { FaBars, FaTimes } from "react-icons/fa";
 
 const LINKS = [
-  { label: "Skills", href: "/#skills" },
-  { label: "Work", href: "/#portfolio" },
+  { label: "Work", href: "/#work" },
+  { label: "Craft", href: "/#skills" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/#contact" },
 ];

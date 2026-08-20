@@ -59,6 +59,11 @@ const config: Config = {
         fast: "var(--dur-fast)",
         base: "var(--dur-base)",
         slow: "var(--dur-slow)",
+        // Named entrance durations: arbitrary values like duration-[900ms]
+        // collide with the tokens above and emit an ambiguity warning.
+        entrance: "900ms",
+        "entrance-lg": "1200ms",
+        "entrance-xl": "1400ms",
       },
       maxWidth: {
         measure: "var(--measure)",

@@ -90,7 +90,7 @@ export default async function CaseStudy({
       />
 
       <Link
-        href="/#portfolio"
+        href="/#work"
         className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.12em] text-ink-dim hover:text-accent transition-colors duration-fast"
       >
         <ArrowLeft className="w-3.5 h-3.5" />
