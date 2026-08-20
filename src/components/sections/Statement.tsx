@@ -45,6 +45,9 @@ export default function Statement() {
       ([{ gsap }, { ScrollTrigger }]) => {
         if (cancelled) return;
         gsap.registerPlugin(ScrollTrigger);
+        // Shared so the route-change handler can refresh pin measurements
+        // after navigation, without importing GSAP into that bundle.
+        window.__ScrollTrigger = ScrollTrigger;
 
         // Lenis drives scroll itself, so ScrollTrigger must read position
         // from it rather than from the native scroll event. Without this the
@@ -66,12 +69,6 @@ export default function Statement() {
               end: "+=110%",
               scrub: 1,
               pin: true,
-              // Pin by transform rather than position:fixed. The fixed
-              // strategy re-parents the section into a pin-spacer div that
-              // React does not know about, so on navigation React's
-              // removeChild targets the wrong parent and throws
-              // NotFoundError. Transform pinning leaves the DOM tree alone.
-              pinType: "transform",
               // The pinned element is fixed, so the page must not also
               // smooth-scroll underneath it mid-pin.
               anticipatePin: 1,
@@ -150,6 +147,7 @@ export default function Statement() {
 
         cleanup = () => {
           teardownRef.current = undefined;
+          window.__ScrollTrigger = undefined;
           drawCleanup?.();
           lenis?.off?.("scroll", onLenisScroll);
           ctx.revert();

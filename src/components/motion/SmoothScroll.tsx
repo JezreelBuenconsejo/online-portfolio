@@ -64,33 +64,55 @@ export default function SmoothScroll() {
     };
   }, []);
 
-  // Land at the top of every new route. Anchors within a page (/#work) keep
-  // their own behaviour, so only bare paths are reset.
+  // Land at the top of every new route, or at the anchor when one is given.
   useEffect(() => {
-    if (window.location.hash) return;
-
     let raf = 0;
+    const hash = window.location.hash;
 
-    const reset = () => {
-      window.scrollTo(0, 0);
+    const settle = () => {
       const lenis = window.__lenis;
-      if (lenis) {
-        // Recalculate first: the new page's height is not yet known, and
-        // scrollTo against a stale limit can clamp to the wrong offset.
-        lenis.resize();
-        lenis.scrollTo(0, { immediate: true, force: true });
+      // The incoming page's height is not known yet, and any pinned
+      // ScrollTrigger measured its offsets against the *previous* page.
+      // Without recalculating, a pin can engage over the wrong scroll range
+      // and trap the reader inside its section.
+      lenis?.resize();
+      window.__ScrollTrigger?.refresh();
+
+      if (hash) {
+        // Re-run the anchor jump after the refresh: the target's real
+        // position is only known once pin spacing has been recalculated.
+        const target = document.querySelector(hash);
+        if (target) {
+          if (lenis) {
+            lenis.scrollTo(hash, { immediate: true, force: true });
+          } else {
+            target.scrollIntoView();
+          }
+        }
+        return;
       }
+
+      window.scrollTo(0, 0);
+      lenis?.scrollTo(0, { immediate: true, force: true });
     };
 
     // Run now, then again after paint. Lenis loads asynchronously and the
     // incoming page's layout settles a frame late, so a single early call
     // can be undone by either.
-    reset();
+    settle();
     raf = requestAnimationFrame(() => {
-      raf = requestAnimationFrame(reset);
+      raf = requestAnimationFrame(settle);
     });
 
-    return () => cancelAnimationFrame(raf);
+    // A same-page anchor click changes the hash without changing pathname,
+    // so the effect would not re-run and the pin would keep stale offsets.
+    const onHashChange = () => settle();
+    window.addEventListener("hashchange", onHashChange);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("hashchange", onHashChange);
+    };
   }, [pathname]);
 
   return null;
@@ -99,5 +121,6 @@ export default function SmoothScroll() {
 declare global {
   interface Window {
     __lenis?: LenisInstance;
+    __ScrollTrigger?: { refresh: () => void };
   }
 }
