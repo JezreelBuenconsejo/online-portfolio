@@ -44,8 +44,8 @@ const experiences: ExperienceItem[] = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="pt-20 text-theme-text">
-      <h2 className="text-center text-4xl md:text-5xl font-montserrat mb-8 text-main-blue">
+    <section id="experience" className="text-ink">
+      <h2 className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-8">
         Experience
       </h2>
       <Reveal className="mx-auto">
@@ -56,7 +56,7 @@ export default function Experience() {
               className={`relative ${
                 experience.isLast
                   ? "pl-7 pb-8"
-                  : "border-l-4 border-main-blue/70 pl-6 pb-8"
+                  : "border-l-2 border-line-bright pl-6 pb-8"
               }`}
             >
               <span
@@ -66,16 +66,16 @@ export default function Experience() {
                     : experience.isLast
                     ? "-left-1.5 w-4 h-4"
                     : "-left-2.5 w-4 h-4"
-                } bg-main-bluedark rounded-full`}
+                } bg-accent rounded-full`}
               ></span>
-              <h3 className="text-xl leading-none mb-1 text-main-blue">
+              <h3 className="font-display text-xl font-semibold leading-snug mb-1 text-ink">
                 {experience.title}
               </h3>
-              <h4 className="text-lg italic text-main-bluedark brightness-110">
+              <h4 className="text-base text-accent">
                 {experience.company}
               </h4>
-              <p className="text-sm text-theme-text">{experience.period}</p>
-              <p>{experience.description}</p>
+              <p className="font-mono text-xs text-ink-dim mt-0.5 mb-2">{experience.period}</p>
+              <p className="text-ink-muted leading-relaxed">{experience.description}</p>
             </div>
           ))}
         </div>
