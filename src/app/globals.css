@@ -115,22 +115,15 @@
     will-change: auto;
   }
 
-  /* No-JS safety net: if scripts never run, nothing flips data-visible and
-     the content would stay hidden forever.
-     This is scoped to .no-js, which only ever survives on the <html> element
-     when the inline script in layout.tsx fails to run. A timed animation
-     here would be filled with `forwards` and permanently override the
-     transition above, killing every reveal below the fold. */
-  .no-js [data-reveal] {
-    opacity: 1;
-    transform: none;
-  }
+  /* The no-JS safety net lives in a <style> in layout.tsx that the inline
+     script removes before first paint. It cannot live here: this stylesheet
+     is always applied, and the marker it would need on <html> causes a
+     hydration mismatch. */
 
-  /* Same guarantee for the pinned statement, whose lines start hidden and
-     are revealed by GSAP rather than by the observer. */
-  .no-js [data-line],
-  .no-js [data-tail] {
-    opacity: 1 !important;
+  /* Non-pinned path (mobile, reduced motion): GSAP never runs, so the
+     outgoing connector needs its scale reset or it stays collapsed. */
+  [data-static="true"] [data-outline] {
+    transform: scaleY(1);
   }
 }
 

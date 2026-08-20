@@ -126,17 +126,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`h-full no-js ${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+      className={`h-full ${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
     >
       <head>
-        {/* Runs before paint: strips .no-js so reveals stay hidden until the
-            observer shows them. If scripts are off this never runs, and the
-            .no-js rule renders everything visible instead. */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `document.documentElement.classList.remove('no-js')`,
-          }}
-        />
+        {/* No-JS fallback, inside <noscript> so it applies only when
+            scripts are unavailable. Earlier attempts used a marker class on
+            <html> (hydration mismatch) or a <style> removed by script (React
+            re-inserts it on hydration, permanently killing every reveal).
+            <noscript> needs neither: the browser ignores its contents
+            entirely when scripts run. */}
+        <noscript>
+          <style>{
+            `[data-reveal],[data-line],[data-tail]{opacity:1!important;transform:none!important;filter:none!important}` +
+            `[data-outline]{transform:scaleY(1)!important}`
+          }</style>
+        </noscript>
       </head>
       <body className="antialiased bg-void relative h-full font-sans">
         <Script

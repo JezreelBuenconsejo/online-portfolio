@@ -52,6 +52,8 @@ export default function Statement() {
         const onLenisScroll = () => ScrollTrigger.update();
         lenis?.on?.("scroll", onLenisScroll);
 
+        let drawCleanup: (() => void) | undefined;
+
         const ctx = gsap.context(() => {
           const lines = gsap.utils.toArray<HTMLElement>("[data-line]");
           const tail = section.querySelector("[data-tail]");
@@ -60,7 +62,7 @@ export default function Statement() {
             scrollTrigger: {
               trigger: section,
               start: "top top",
-              end: "+=150%",
+              end: "+=110%",
               scrub: 1,
               pin: true,
               // The pinned element is fixed, so the page must not also
@@ -92,11 +94,55 @@ export default function Statement() {
             );
           }
 
+          // The connector must NOT be a tween on the pinned timeline: that
+          // holds the pin open until it finishes, gating scrolling.
+          //
+          // It also cannot use start/end offsets against this section, whose
+          // box is frozen while pinned. Instead it listens to raw scroll and
+          // maps the stretch *after* the pin ends onto the line's scale, so
+          // it draws while the page moves normally.
+          const outLine = section.querySelector<HTMLElement>("[data-outline]");
+          if (outLine) {
+            gsap.set(outLine, { scaleY: 0, transformOrigin: "top center" });
+
+            const draw = () => {
+              const pinEnd = tl.scrollTrigger?.end;
+              if (pinEnd == null) return;
+
+              // Draw across 1.3 screens of ordinary scrolling once the pin
+              // has released, so the line grows over a longer stretch.
+              const span = window.innerHeight * 1.0;
+              // Start a little before the pin fully releases, so the line is
+              // already growing as the page begins to move.
+              const lead = window.innerHeight * 0.15;
+              // Read from the pin's own scroller so the value matches what
+              // ScrollTrigger measured pinEnd against; Lenis drives scrolling
+              // here and window.scrollY can lag behind it.
+              const y = tl.scrollTrigger?.scroll() ?? window.scrollY;
+              const progress = (y - (pinEnd - lead)) / span;
+              gsap.set(outLine, {
+                scaleY: Math.max(0, Math.min(1, progress)),
+              });
+            };
+
+            draw();
+            ScrollTrigger.addEventListener("refresh", draw);
+            window.addEventListener("scroll", draw, { passive: true });
+            lenis?.on?.("scroll", draw);
+
+            drawCleanup = () => {
+              ScrollTrigger.removeEventListener("refresh", draw);
+              window.removeEventListener("scroll", draw);
+              lenis?.off?.("scroll", draw);
+            };
+          }
+
           // Fonts and images settle after mount and change the pin height.
           ScrollTrigger.refresh();
         }, section);
 
         cleanup = () => {
+          drawCleanup?.();
           lenis?.off?.("scroll", onLenisScroll);
           ctx.revert();
         };
@@ -114,8 +160,20 @@ export default function Statement() {
       ref={sectionRef}
       id="statement"
       data-static="false"
-      className="group/stmt min-h-screen flex items-center py-20 lg:py-0"
+      className="group/stmt relative min-h-screen flex items-center py-20 lg:py-0"
     >
+      {/* Connector: continues the hero's scroll cue down to the copy below.
+          Anchored to the section's top edge rather than sitting in the
+          centred content flow, and pulled up by the 32px the hero's cue
+          stops short of its own boundary so the two lines meet.
+          Decorative, so hidden from assistive tech. */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2
+          block w-px h-[calc(50vh-7.5rem)]
+          bg-gradient-to-b from-accent/40 to-accent"
+      />
+
       <div className="max-w-4xl xl:max-w-5xl mx-auto w-full">
         <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-8">
           What I do
@@ -142,7 +200,15 @@ export default function Statement() {
             perform in the real world.
           </p>
         </div>
-
+        {/* Outgoing connector. origin-top so it draws downward, scrubbed
+            against scroll as the closing beat of the pinned timeline. */}
+        <span
+          aria-hidden="true"
+          data-outline=""
+          className="pointer-events-none absolute -bottom-[70px] left-1/2 -translate-x-1/2
+          block w-px h-[calc(50vh-7.5rem)] origin-top
+          bg-gradient-to-b from-accent via-accent/50 to-transparent"
+        />
       </div>
     </section>
   );

@@ -176,7 +176,7 @@ export default function Hero() {
         <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-dim">
           Scroll
         </span>
-        <span className="block w-px h-10 bg-gradient-to-b from-accent to-transparent" />
+        <span className="block w-px h-10 bg-gradient-to-b from-transparent to-accent/50" />
       </a>
     </section>
   );
