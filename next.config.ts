@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // A stray package-lock.json in the home directory makes Next infer the
+  // wrong workspace root; pin it to this project.
+  outputFileTracingRoot: __dirname,
   images: {
     // AVIF first, WebP fallback. Next negotiates per-browser and caches
     // the encoded result, so large PNGs are never served as-is.
