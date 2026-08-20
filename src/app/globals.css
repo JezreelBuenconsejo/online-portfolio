@@ -125,6 +125,13 @@
     opacity: 1;
     transform: none;
   }
+
+  /* Same guarantee for the pinned statement, whose lines start hidden and
+     are revealed by GSAP rather than by the observer. */
+  .no-js [data-line],
+  .no-js [data-tail] {
+    opacity: 1 !important;
+  }
 }
 
 /* ============================================================

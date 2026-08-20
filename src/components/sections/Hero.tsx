@@ -86,7 +86,7 @@ export default function Hero() {
       ref={sectionRef}
       id="hero"
       data-entered="false"
-      className="group/hero relative min-h-[92vh] md:min-h-screen flex flex-col justify-center items-center pt-24 pb-16"
+      className="group/hero relative min-h-[92vh] md:min-h-screen flex flex-col justify-center items-center pt-24 pb-16 lg:pb-0"
     >
       {/* Cursor-tracking glow. Decorative, hidden from assistive tech.
           Fixed rather than absolute so it escapes the 1440px <main> clamp

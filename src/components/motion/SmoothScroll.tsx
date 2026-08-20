@@ -10,6 +10,8 @@ interface LenisInstance {
     opts?: { immediate?: boolean; force?: boolean }
   ) => void;
   resize: () => void;
+  on?: (event: string, cb: () => void) => void;
+  off?: (event: string, cb: () => void) => void;
 }
 
 /**
