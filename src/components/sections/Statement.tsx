@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 
 /**
  * Act II, Identity.
@@ -22,6 +22,7 @@ const LINES = [
 
 export default function Statement() {
   const sectionRef = useRef<HTMLElement>(null);
+  const teardownRef = useRef<(() => void) | undefined>(undefined);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -65,6 +66,12 @@ export default function Statement() {
               end: "+=110%",
               scrub: 1,
               pin: true,
+              // Pin by transform rather than position:fixed. The fixed
+              // strategy re-parents the section into a pin-spacer div that
+              // React does not know about, so on navigation React's
+              // removeChild targets the wrong parent and throws
+              // NotFoundError. Transform pinning leaves the DOM tree alone.
+              pinType: "transform",
               // The pinned element is fixed, so the page must not also
               // smooth-scroll underneath it mid-pin.
               anticipatePin: 1,
@@ -142,16 +149,28 @@ export default function Statement() {
         }, section);
 
         cleanup = () => {
+          teardownRef.current = undefined;
           drawCleanup?.();
           lenis?.off?.("scroll", onLenisScroll);
           ctx.revert();
         };
+        teardownRef.current = cleanup;
       }
     );
 
     return () => {
       cancelled = true;
       cleanup?.();
+    };
+  }, []);
+
+  // Tear the pin down synchronously, before React begins removing this
+  // subtree. A useEffect cleanup runs too late: by then React may already
+  // be calling removeChild against a parent GSAP has changed.
+  useLayoutEffect(() => {
+    return () => {
+      teardownRef.current?.();
+      teardownRef.current = undefined;
     };
   }, []);
 
