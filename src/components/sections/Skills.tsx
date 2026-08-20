@@ -16,14 +16,14 @@ import { skillGroups, skillIcons } from "@/data/skills";
 export default function Skills() {
   return (
     <section id="skills" className="py-24 md:py-32">
-      <Reveal className="mb-16">
-        <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-4">
+      <div className="mb-16">
+        <Reveal as="p" y={20} className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-4">
           Craft
-        </p>
-        <h2 className="font-display text-3xl md:text-5xl font-semibold tracking-tight text-ink text-balance">
+        </Reveal>
+        <Reveal as="h2" delay={90} className="font-display text-3xl md:text-5xl font-semibold tracking-tight text-ink text-balance">
           What I build with
-        </h2>
-      </Reveal>
+        </Reveal>
+      </div>
 
       <div className="space-y-14 md:space-y-20">
         {skillGroups.map((group, gi) => (

@@ -33,17 +33,15 @@ export default function Contact() {
       </div>
 
       <div className="relative z-10 max-w-4xl">
-        <Reveal>
-          <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-5">
-            Contact
-          </p>
-          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.08] text-ink text-balance">
-            Have something you want built?
-          </h2>
-          <p className="mt-6 max-w-measure text-lg text-ink-muted leading-relaxed text-pretty">
-            I&apos;m based in {site.location.city} and work with clients
-            remotely. The fastest way to reach me is email.
-          </p>
+        <Reveal as="p" y={20} className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-5">
+          Contact
+        </Reveal>
+        <Reveal as="h2" delay={90} y={56} className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-[1.08] text-ink text-balance">
+          Have something you want built?
+        </Reveal>
+        <Reveal as="p" delay={200} className="mt-6 max-w-measure text-lg text-ink-muted leading-relaxed text-pretty">
+          I&apos;m based in {site.location.city} and work with clients
+          remotely. The fastest way to reach me is email.
         </Reveal>
 
         <Reveal delay={120} className="mt-12">

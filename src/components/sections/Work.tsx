@@ -14,22 +14,22 @@ import { projects } from "@/data/projects";
 export default function Work() {
   return (
     <section id="work" className="py-24 md:py-32">
-      <Reveal className="mb-14">
-        <p className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-4">
+      <div className="mb-14">
+        <Reveal as="p" y={20} className="font-mono text-xs uppercase tracking-[0.16em] text-accent mb-4">
           Selected work
-        </p>
-        <h2 className="font-display text-3xl md:text-5xl font-semibold tracking-tight text-ink text-balance">
+        </Reveal>
+        <Reveal as="h2" delay={90} className="font-display text-3xl md:text-5xl font-semibold tracking-tight text-ink text-balance">
           Things I&apos;ve shipped
-        </h2>
-        <p className="mt-5 max-w-measure text-ink-muted leading-relaxed text-pretty">
+        </Reveal>
+        <Reveal as="p" delay={180} className="mt-5 max-w-measure text-ink-muted leading-relaxed text-pretty">
           Most of these are personal or direct-client projects. I can&apos;t show
           most of my client work due to NDAs I&apos;ve signed.
-        </p>
-      </Reveal>
+        </Reveal>
+      </div>
 
       <div className="space-y-16 md:space-y-24">
         {projects.map((project, i) => (
-          <Reveal key={project.slug} y={32}>
+          <Reveal key={project.slug} y={56}>
             <Link
               href={`/work/${project.slug}`}
               className="group grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center"

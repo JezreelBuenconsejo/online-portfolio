@@ -15,17 +15,17 @@ interface RevealGroupProps {
 /**
  * Reveals direct children in sequence on scroll.
  *
- * The stagger is capped (default 600ms total), a per-item delay applied
+ * The stagger is capped (default 720ms total), a per-item delay applied
  * blindly makes a 30-item list take three seconds to finish, which reads
  * as broken rather than choreographed.
  */
 export default function RevealGroup({
   children,
   className,
-  stagger = 60,
-  maxTotal = 600,
-  y = 20,
-  threshold = 0.1,
+  stagger = 72,
+  maxTotal = 720,
+  y = 32,
+  threshold = 0,
 }: RevealGroupProps) {
   const ref = useRef<HTMLDivElement>(null);
   const count = Children.count(children);
@@ -54,7 +54,7 @@ export default function RevealGroup({
         });
         observer.unobserve(el);
       },
-      { threshold, rootMargin: "0px 0px -8% 0px" }
+      { threshold, rootMargin: "0px 0px -12% 0px" }
     );
 
     observer.observe(el);

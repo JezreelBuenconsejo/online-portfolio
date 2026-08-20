@@ -126,8 +126,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`h-full ${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+      className={`h-full no-js ${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
     >
+      <head>
+        {/* Runs before paint: strips .no-js so reveals stay hidden until the
+            observer shows them. If scripts are off this never runs, and the
+            .no-js rule renders everything visible instead. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.remove('no-js')`,
+          }}
+        />
+      </head>
       <body className="antialiased bg-void relative h-full font-sans">
         <Script
           src="https://cloud.umami.is/script.js"

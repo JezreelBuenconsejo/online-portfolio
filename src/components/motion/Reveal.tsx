@@ -30,7 +30,7 @@ export default function Reveal({
   as: Tag = "div",
   delay = 0,
   y,
-  threshold = 0.15,
+  threshold = 0,
   repeat = false,
 }: RevealProps) {
   const ref = useRef<HTMLElement>(null);
@@ -55,7 +55,10 @@ export default function Reveal({
           el.setAttribute("data-visible", "false");
         }
       },
-      { threshold, rootMargin: "0px 0px -8% 0px" }
+      // Fire as soon as the top edge crosses ~12% up from the viewport
+      // bottom. threshold alone is unreliable for tall sections, which may
+      // never reach a fraction-visible target before they fill the screen.
+      { threshold, rootMargin: "0px 0px -12% 0px" }
     );
 
     observer.observe(el);

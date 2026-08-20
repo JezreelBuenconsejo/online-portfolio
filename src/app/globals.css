@@ -34,6 +34,7 @@
     --dur-fast: 200ms;   /* hovers, small state changes */
     --dur-base: 400ms;   /* reveals */
     --dur-slow: 800ms;   /* hero beats */
+    --dur-reveal: 720ms; /* scroll reveals */
 
     /* --- Layout --- */
     --measure: 68ch;
@@ -95,36 +96,34 @@
 @layer components {
   [data-reveal] {
     opacity: 0;
-    transform: translate3d(0, var(--reveal-y, 20px), 0);
+    /* Rise, unblur, and settle from slightly scaled back, so the element
+       reads as arriving rather than merely appearing. */
+    transform: translate3d(0, var(--reveal-y, 35px), 0) scale(var(--reveal-scale, 0.985));
+    filter: blur(var(--reveal-blur, 4.5px));
     transition:
-      opacity var(--dur-base) var(--ease-out),
-      transform var(--dur-base) var(--ease-out);
+      opacity var(--dur-reveal) var(--ease-out),
+      transform var(--dur-reveal) var(--ease-out),
+      filter var(--dur-reveal) var(--ease-out);
     transition-delay: var(--reveal-delay, 0ms);
-    will-change: opacity, transform;
+    will-change: opacity, transform, filter;
   }
 
   [data-reveal][data-visible="true"] {
     opacity: 1;
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
     will-change: auto;
   }
 
   /* No-JS safety net: if scripts never run, nothing flips data-visible and
-     the content would stay hidden forever. This animation fires on its own
-     and is cancelled the moment the observer marks the element visible. */
-  @keyframes reveal-fallback {
-    to {
-      opacity: 1;
-      transform: translate3d(0, 0, 0);
-    }
-  }
-
-  [data-reveal][data-visible="false"] {
-    animation: reveal-fallback 1ms linear 3s forwards;
-  }
-
-  [data-reveal][data-visible="true"] {
-    animation: none;
+     the content would stay hidden forever.
+     This is scoped to .no-js, which only ever survives on the <html> element
+     when the inline script in layout.tsx fails to run. A timed animation
+     here would be filled with `forwards` and permanently override the
+     transition above, killing every reveal below the fold. */
+  .no-js [data-reveal] {
+    opacity: 1;
+    transform: none;
   }
 }
 
@@ -225,5 +224,6 @@
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
+    filter: none !important;
   }
 }
