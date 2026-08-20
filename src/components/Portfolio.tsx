@@ -9,13 +9,6 @@ import Image from "next/image";
 // Projects data array
 const projects = [
   {
-    id: 0,
-    title: "AI Story Generator",
-    subtitle: "(MVP achieved - Developing into AI Agent)",
-    href: "https://ai-agent-one.vercel.app/",
-    image: "/assets/portfolio/ai-agent.png",
-  },
-  {
     id: 1,
     title: "Sales Tracker & POS System",
     subtitle: "(In Development)",
@@ -32,74 +25,8 @@ const projects = [
   {
     id: 99,
     title: "Axl Tees",
-    subtitle: "(In Development, Static UI)",
-    href: "https://axl-tees.vercel.app/",
+    href: "https://www.axltees.com/",
     image: "/assets/portfolio/axl-tees.png",
-  },
-  
-  {
-    id: 23,
-    title: "Web Scraper",
-    subtitle: "Qoutes, Reddit & Tiktok",
-    href: "https://diligent-spontaneity-production-95fb.up.railway.app/",
-    image: "/assets/portfolio/web-scraper.png",
-  },
-  {
-    id: 51,
-    title: "Netflix Landing Page Clone",
-    subtitle:
-      "(Might be tagged by Chrome as 'Not Secure', It's false Positive)",
-    href: "https://saas-clone-jez.netlify.app/",
-    image: "/assets/portfolio/netflix.png",
-  },
-  {
-    id: 3,
-    title: "Fire Safety Store",
-    subtitle: "(Static UI)",
-    href: "https://fire-safety-store.vercel.app/",
-    image: "/assets/portfolio/fire-safety-store.png",
-  },
-  {
-    id: 4,
-    title: "Hotel Booking",
-    subtitle: "(Static UI)",
-    href: "https://hotel-booking-jez.netlify.app/booking",
-    image: "/assets/portfolio/hotel-booking.png",
-  },
-  {
-    id: 5,
-    title: "Hero Page",
-    subtitle: "",
-    href: "https://comfy-pithivier-e03b53.netlify.app/",
-    image: "/assets/portfolio/hero-page/pic1.png",
-  },
-  {
-    id: 6,
-    title: "To Do App",
-    subtitle: "",
-    href: "https://jocular-lokum-86bc15.netlify.app/#/",
-    image: "/assets/portfolio/todo/pic1.png",
-  },
-  {
-    id: 7,
-    title: "Facemask Detection",
-    subtitle: "",
-    href: "https://sensational-piroshki-a37ced.netlify.app/",
-    image: "/assets/portfolio/facemask-detection/pic1.png",
-  },
-  {
-    id: 8,
-    title: "Client Feedback Form",
-    subtitle: "[Code]",
-    href: "https://github.com/JezreelBuenconsejo/Client-Feedback-Form",
-    image: "/assets/portfolio/client-feedback-form/pic1.jpg",
-  },
-  {
-    id: 9,
-    title: "Decision Support System",
-    subtitle: "[Code] (Inactive project)",
-    href: "https://github.com/JezreelBuenconsejo/PalawanDSS",
-    image: "/assets/portfolio/dss/pic1.jpg",
   },
 ];
 
