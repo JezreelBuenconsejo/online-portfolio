@@ -187,7 +187,7 @@ export default function Statement() {
       <span
         aria-hidden="true"
         className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2
-          block w-px h-[calc(50vh-7.5rem)]
+          block w-px h-[calc(50vh-12rem)] sm:h-[calc(50vh-7.5rem)]
           bg-gradient-to-b from-accent/40 to-accent"
       />
 
@@ -223,7 +223,7 @@ export default function Statement() {
           aria-hidden="true"
           data-outline=""
           className="pointer-events-none absolute -bottom-[70px] left-1/2 -translate-x-1/2
-          block w-px h-[calc(50vh-7.5rem)] origin-top
+          block w-px h-[calc(50vh-10rem)] sm:h-[calc(50vh-7.5rem)] origin-top
           bg-gradient-to-b from-accent via-accent/50 to-transparent"
         />
       </div>
