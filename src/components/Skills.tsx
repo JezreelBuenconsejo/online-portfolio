@@ -134,7 +134,7 @@ export default function Skills() {
     Firebase: "/assets/skills/firebase.png",
     Supabase: "/assets/skills/supabase.png",
     Flutter: "/assets/skills/flutter.png",
-    "React Native": "/assets/skills/react.png",
+    "React Native": "/assets/skills/React.png",
     "Git & GitHub": "/assets/skills/git.png",
     "REST APIs": "/assets/skills/rest-api-icon.png",
   };
