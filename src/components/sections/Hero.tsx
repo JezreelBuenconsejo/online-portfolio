@@ -4,7 +4,7 @@ import Image from "next/image";
 import { site } from "@/data/site";
 
 /**
- * Act I — Arrival.
+ * Act I, Arrival.
  *
  * Name resolves word by word, a soft accent glow tracks the cursor, and the
  * whole group drifts on scroll. Everything is transform/opacity on a single

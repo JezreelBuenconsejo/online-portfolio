@@ -4,10 +4,10 @@ import RevealGroup from "@/components/motion/RevealGroup";
 import { skillGroups, skillIcons } from "@/data/skills";
 
 /**
- * Act III — Craft.
+ * Act III, Craft.
  *
  * Replaces the old five-tab UI. Everything is visible at once, grouped by
- * domain and assembled on scroll — a tab bar is a form control, and it
+ * domain and assembled on scroll, a tab bar is a form control, and it
  * interrupts a narrative scroll.
  *
  * Server component: no state, no interaction, zero client JS beyond the

@@ -13,7 +13,7 @@ const experiences: ExperienceItem[] = [
     title: "Software Developer",
     company: "Direct Client",
     period: "March 2023 - Present",
-    description: "Freelance Software Developer with a strong background in building modern web-based applications and cross-platform mobile apps. Experienced in collaborating with international teams, delivering client-driven solutions, and managing end-to-end development — from architecture and implementation to deployment and maintenance. Known for writing clean, maintainable code and continuously improving systems for performance, scalability, and user experience."
+    description: "Freelance Software Developer with a strong background in building modern web-based applications and cross-platform mobile apps. Experienced in collaborating with international teams, delivering client-driven solutions, and managing end-to-end development, from architecture and implementation to deployment and maintenance. Known for writing clean, maintainable code and continuously improving systems for performance, scalability, and user experience."
   },
   {
     title: "Executive Virtual Assistant (Operations and Database Manager)",

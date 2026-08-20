@@ -1,7 +1,7 @@
 import Reveal from "@/components/motion/Reveal";
 
 /**
- * Act II — Identity.
+ * Act II, Identity.
  *
  * A short statement that builds line by line as it enters view. Deliberately
  * quiet: large type, generous space, nothing to click. It exists to slow the
@@ -10,7 +10,7 @@ import Reveal from "@/components/motion/Reveal";
 
 const LINES = [
   "I build web and mobile applications",
-  "for people who have to use them every day —",
+  "for people who have to use them every day:",
   "shop counters, storefronts, real money.",
 ];
 

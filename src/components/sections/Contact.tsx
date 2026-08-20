@@ -5,7 +5,7 @@ import Reveal from "@/components/motion/Reveal";
 import { contact, site } from "@/data/site";
 
 /**
- * Act V — Invitation.
+ * Act V, Invitation.
  *
  * Oversized type and the accent glow from Act I, closing the loop.
  */
@@ -24,7 +24,7 @@ const SOCIAL = [
 export default function Contact() {
   return (
     <section id="contact" className="relative py-28 md:py-40 overflow-hidden">
-      {/* Ambient glow — echoes the hero. Decorative. */}
+      {/* Ambient glow, echoing the hero. Decorative. */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 -bottom-40 flex justify-center"

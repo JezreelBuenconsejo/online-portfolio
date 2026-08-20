@@ -21,7 +21,7 @@ interface RevealProps {
  *
  * An IntersectionObserver flips a data attribute; the actual transition is
  * CSS (see [data-reveal] in globals.css) and runs on the compositor thread.
- * This is the default reveal across the site — Framer Motion is reserved
+ * This is the default reveal across the site, Framer Motion is reserved
  * for cases that genuinely need layout or exit animation.
  */
 export default function Reveal({

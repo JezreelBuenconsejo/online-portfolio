@@ -15,7 +15,7 @@ interface RevealGroupProps {
 /**
  * Reveals direct children in sequence on scroll.
  *
- * The stagger is capped (default 600ms total) — a per-item delay applied
+ * The stagger is capped (default 600ms total), a per-item delay applied
  * blindly makes a 30-item list take three seconds to finish, which reads
  * as broken rather than choreographed.
  */

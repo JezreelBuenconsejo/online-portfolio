@@ -11,16 +11,16 @@
   :root {
     /* --- Surfaces: near-black with a blue undertone, so the accent
            reads as intentional rather than incidental. --- */
-    --void: 10 12 16;           /* #0A0C10 — page base */
-    --surface: 18 21 28;        /* #12151C — cards, panels */
-    --elevated: 26 31 42;       /* #1A1F2A — hover, active */
+    --void: 10 12 16;           /* #0A0C10, page base */
+    --surface: 18 21 28;        /* #12151C, cards, panels */
+    --elevated: 26 31 42;       /* #1A1F2A, hover, active */
     --border: 35 41 54;         /* #232936 */
     --border-bright: 46 54 70;  /* #2E3646 */
 
     /* --- Text --- */
     --text-primary: 242 245 249;  /* #F2F5F9 */
-    --text-muted: 169 180 196;    /* #A9B4C4 — 7.2:1 on void */
-    --text-dim: 124 135 152;      /* #7C8798 — 4.6:1 on void, AA */
+    --text-muted: 169 180 196;    /* #A9B4C4, 7.2:1 on void */
+    --text-dim: 124 135 152;      /* #7C8798, 4.6:1 on void, AA */
 
     /* --- Accent: your existing brand blue, unchanged --- */
     --accent: 55 175 225;       /* #37AFE1 */
@@ -88,7 +88,7 @@
 }
 
 /* ============================================================
-   SCROLL REVEAL — CSS-driven, zero JS animation cost.
+   SCROLL REVEAL, CSS-driven, zero JS animation cost.
    An IntersectionObserver flips [data-reveal] to [data-visible];
    the transition itself runs on the compositor.
    ============================================================ */

@@ -5,7 +5,7 @@ import Reveal from "@/components/motion/Reveal";
 import { projects } from "@/data/projects";
 
 /**
- * Act IV — Proof.
+ * Act IV, Proof.
  *
  * Alternating full-width project rows rather than a uniform card grid: at
  * three projects a grid reads as thin, while giving each one a full row

@@ -4,7 +4,7 @@ export const site = {
   url: "https://www.jezreelbuenconsejo.com",
   name: "Jezreel Jose Buenconsejo",
   role: "Software Developer",
-  title: "Jezreel Jose Buenconsejo — Software Developer",
+  title: "Jezreel Jose Buenconsejo | Software Developer",
   description:
     "Software Developer & Frontend Engineer (React/Next.js, TypeScript, Golang, Node.js) based in the Philippines. I build fast, accessible, and scalable web apps.",
   location: {

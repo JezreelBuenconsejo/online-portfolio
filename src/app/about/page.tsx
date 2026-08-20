@@ -30,7 +30,7 @@ export default function About() {
           <p>
             I&apos;m {site.name}, a software developer based in{" "}
             {site.location.city}, {site.location.region}. I build web and mobile
-            applications — mostly React and Next.js on the front, Go, Node, and
+            applications, mostly React and Next.js on the front, Go, Node, and
             Postgres behind them.
           </p>
           <p>

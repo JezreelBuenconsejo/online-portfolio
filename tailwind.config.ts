@@ -29,7 +29,7 @@ const config: Config = {
           dim: rgb("--text-dim"),
         },
 
-        // Legacy aliases — kept so existing components keep compiling
+        // Legacy aliases, kept so existing components keep compiling
         // while sections are migrated phase by phase.
         main: {
           blue: rgb("--accent"),
