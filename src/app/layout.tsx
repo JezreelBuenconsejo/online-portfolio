@@ -112,7 +112,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       addressRegion: site.location.region,
       addressLocality: site.location.city,
     },
-    sameAs: [contact.github, "https://jez-buenconsejo.vercel.app"],
+    // sameAs tells Google these profiles are the same person, which is how
+    // it consolidates identity signals onto this domain. Only live URLs
+    // belong here: a dead one (the old Vercel deploy that used to sit in
+    // this list) points the entity graph at a 404.
+    sameAs: [contact.github, contact.facebook, contact.instagram],
   };
 
   const jsonLdWebSite = {
