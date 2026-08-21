@@ -31,7 +31,7 @@ export default function Statement() {
     // Pinning is desktop-only: on a phone it competes with native scroll
     // and the payoff does not justify the cost.
     const mq = window.matchMedia(
-      "(min-width: 1024px) and (prefers-reduced-motion: no-preference)"
+      "(prefers-reduced-motion: no-preference)"
     );
     if (!mq.matches) {
       section.setAttribute("data-static", "true");
@@ -188,7 +188,7 @@ export default function Statement() {
         aria-hidden="true"
         className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2
           block w-px h-[calc(50vh-12rem)] sm:h-[calc(50vh-7.5rem)]
-          bg-gradient-to-b from-accent/40 to-accent"
+          bg-gradient-to-b from-accent/10 to-accent"
       />
 
       <div className="max-w-4xl xl:max-w-5xl mx-auto w-full">

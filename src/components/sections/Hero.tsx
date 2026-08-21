@@ -169,14 +169,13 @@ export default function Hero() {
       <a
         href="#statement"
         aria-label="Scroll to content"
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2
+        className="absolute bottom-8 pb-4 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2
           opacity-0 group-data-[entered=true]/hero:opacity-100
           transition-opacity duration-slow ease-out delay-1000"
       >
         <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-dim">
           Scroll
         </span>
-        <span className="block w-px h-10 bg-gradient-to-b from-transparent to-accent/50" />
       </a>
     </section>
   );
