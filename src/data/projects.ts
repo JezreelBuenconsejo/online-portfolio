@@ -71,7 +71,7 @@ export const projects: Project[] = [
     ],
     links: { live: "https://www.axltees.com/" },
     cover: {
-      src: "/assets/portfolio/axl-tees.png",
+      src: "/assets/portfolio/axl-tees.webp",
       alt: "Axl Tees storefront showing graphic t-shirt collections",
       width: 1200,
       height: 760,
@@ -134,7 +134,7 @@ export const projects: Project[] = [
     ],
     links: { live: "https://sales-tracker-jez.vercel.app/" },
     cover: {
-      src: "/assets/portfolio/sales-tracker.png",
+      src: "/assets/portfolio/sales-tracker.webp",
       alt: "Sales Tracker point-of-sale dashboard",
       width: 1200,
       height: 760,
