@@ -1,7 +1,13 @@
 "use client";
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { site } from "@/data/site";
+
+// Decorative only, so it never blocks first paint or SSR.
+const ParticleField = dynamic(() => import("@/components/motion/ParticleField"), {
+  ssr: false,
+});
 
 /**
  * Act I, Arrival.
@@ -14,6 +20,7 @@ export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
   const parallaxRef = useRef<HTMLDivElement>(null);
+  const tiltRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -47,6 +54,25 @@ export default function Hero() {
       if (el && target) {
         target.style.transform = `translate3d(0, ${p * 12}%, 0)`;
         target.style.opacity = `${1 - p * 0.6}`;
+      }
+
+      // Cursor-reactive tilt: real perspective projection, done by the
+      // compositor rather than a 3D renderer. Pointer offsets are in px
+      // from the section's centre, so normalise to -1..1 first.
+      const tilt = tiltRef.current;
+      if (el && tilt) {
+        const nx = Math.max(-1, Math.min(1, pointerX / (el.offsetWidth / 2)));
+        const ny = Math.max(-1, Math.min(1, pointerY / (el.offsetHeight / 2)));
+        // Y follows the cursor horizontally, X inverts so the top edge
+        // leans away as the cursor drops below centre.
+        const MAX_DEG = 11;
+        // Ease the tilt out as the hero scrolls away, so it does not hang
+        // at an angle once the section is behind you.
+        const settle = 1 - p;
+        tilt.style.transform =
+          `rotateY(${nx * MAX_DEG * settle}deg) ` +
+          `rotateX(${-ny * MAX_DEG * settle}deg) ` +
+          `translateZ(0)`;
       }
       ticking = false;
     };
@@ -88,6 +114,17 @@ export default function Hero() {
       data-entered="false"
       className="group/hero relative min-h-[92vh] md:min-h-screen flex flex-col justify-center items-center pt-24 pb-16 lg:pb-0"
     >
+      {/* Ambient depth field. Sits above the page background but below the
+          glow and content, so the points read as a layer within the scene. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-[1] overflow-hidden
+          opacity-0 group-data-[entered=true]/hero:opacity-100
+          transition-opacity duration-entrance-xl ease-out"
+      >
+        <ParticleField />
+      </div>
+
       {/* Cursor-tracking glow. Decorative, hidden from assistive tech.
           Fixed rather than absolute so it escapes the 1440px <main> clamp
           and spans the full viewport; opacity is driven by scroll in the
@@ -109,21 +146,32 @@ export default function Hero() {
         ref={parallaxRef}
         className="relative z-10 w-full max-w-5xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-10 lg:gap-14 will-change-transform"
       >
-        <div className="flex-1 flex justify-center lg:justify-start">
-          <Image
-            src="/assets/Hero.webp"
-            alt={site.name}
-            width={480}
-            height={480}
-            priority
-            sizes="(max-width: 1024px) 60vw, 420px"
-            className="w-44 sm:w-64 lg:w-full lg:max-w-[420px] h-auto drop-shadow-2xl
-              opacity-0 scale-90 blur-sm
-              group-data-[entered=true]/hero:opacity-100
-              group-data-[entered=true]/hero:scale-100
-              group-data-[entered=true]/hero:blur-0
-              transition-all duration-entrance-xl ease-out"
-          />
+        {/* perspective on the container is what makes the child's rotate*
+            read as depth rather than a flat skew. The tilt lives on its own
+            wrapper so it never fights the image's entrance transform. */}
+        <div
+          className="flex-1 flex justify-center lg:justify-start [perspective:1100px]"
+        >
+          <div
+            ref={tiltRef}
+            className="will-change-transform [transform-style:preserve-3d]
+              transition-transform duration-fast ease-out"
+          >
+            <Image
+              src="/assets/Hero.webp"
+              alt={site.name}
+              width={480}
+              height={480}
+              priority
+              sizes="(max-width: 1024px) 60vw, 420px"
+              className="w-44 sm:w-64 lg:w-full lg:max-w-[420px] h-auto drop-shadow-2xl
+                opacity-0 scale-90 blur-sm
+                group-data-[entered=true]/hero:opacity-100
+                group-data-[entered=true]/hero:scale-100
+                group-data-[entered=true]/hero:blur-0
+                transition-all duration-entrance-xl ease-out"
+            />
+          </div>
         </div>
 
         <div className="flex-1 text-center lg:text-left">
